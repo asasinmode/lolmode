@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { defineModel, defineProps } from 'vue';
 
-defineProps<{
+const props = defineProps<{
 	id: string;
 	label: string;
 	isPercent?: boolean;
@@ -24,7 +24,7 @@ function parseInput(event: FocusEvent) {
 
 	(event.target as HTMLInputElement).value = modelValue.value;
 
-	emit('focusout', value);
+	emit('focusout', props.isPercent ? value / 100 : value);
 }
 </script>
 

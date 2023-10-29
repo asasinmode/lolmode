@@ -18,8 +18,8 @@ const isFarming = ref(false);
 const parsedSoulsPerChampion = ref(1.5);
 const rawSoulsPerChampion = ref(1.5);
 
-function updateSoulsPerChampionPerMinute() {
-	parsedSoulsPerChampion.value = rawSoulsPerChampion.value;
+function setSoulsPerChampionPerMinute(value: number) {
+	parsedSoulsPerChampion.value = value;
 }
 
 const parsedMinionSoulDropRate = ref(0);
@@ -57,7 +57,7 @@ const computedMinionSoulsAfter10Per10 = computed(() => minionsPost10Per10 * comp
 const computedMinionSoulsAt20 = computed(() => computedMinionSoulsAt10.value + computedMinionSoulsAfter10Per10.value);
 
 const computedCannonSoulsPer10 = computed(() => isFarming.value ? cannonsPer10 * computedMinionSoulDropRate.value : cannonsPer10);
-const computedCannonSoulsAt20 = computed(() => computedCannonSoulsPer10.value * 2)
+const computedCannonSoulsAt20 = computed(() => computedCannonSoulsPer10.value * 2);
 
 const krugsAt10 = 24;
 const krugsPost10Per10 = 32;
@@ -76,7 +76,12 @@ const computedScuttlesPer10 = computed(() => includeScuttle.value ? scuttlesPer1
 const computedScuttleSoulsPer10 = computed(() => computedScuttlesPer10.value * allyParsedMinionSoulDropRate.value);
 const computedScuttleSoulsAt20 = computed(() => 2 * computedScuttleSoulsPer10.value);
 
-const computedChampionSoulsAt10 = computed(() => (8 + (1 / 3)) * parsedSoulsPerChampion.value * 2);
+const botlaneChampions = 2;
+const pre10ChampionSoulMinutes = 8 + (1 / 3);
+
+const computedChampionSoulsAt10 = computed(() => {
+	return pre10ChampionSoulMinutes * parsedSoulsPerChampion.value * botlaneChampions;
+});
 const computedChampionSoulsPost10Per10 = computed(() => 10 * parsedSoulsPerChampion.value * 2);
 
 const computedTotalAt10 = computed(() => {
@@ -158,7 +163,7 @@ Detailed explanations of various variables can be found in the [FAQ](#faq) at th
 
 ## values
 
-- <FloatInput id="soulsPerChampion" v-model="rawSoulsPerChampion" @focusout="setMinionSoulDropRate" label="souls per champion per minute" />
+- <FloatInput id="soulsPerChampion" v-model="rawSoulsPerChampion" @focusout="setSoulsPerChampionPerMinute" label="souls per champion per minute" />
 - <FloatInput id="minionSoulDropRate" v-model="rawMinionSoulDropRate" @focusout="setMinionSoulDropRate" label="chance for Senna-killed minion soul" is-percent />
 - <FloatInput id="allyMinionSoulDropRate" v-model="allyRawMinionSoulDropRate" @focusout="setAllyMinionSoulDropRate" label="chance for ally-killed minion soul" is-percent />
 
