@@ -1,3 +1,10 @@
+---
+head:
+  - - meta
+    - name: description
+      content: League of Legends Senna souls at 10 and 20 minutes calculator
+---
+
 <script setup lang="ts">
 import { ref } from 'vue';
 
