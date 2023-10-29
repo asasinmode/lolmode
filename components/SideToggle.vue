@@ -6,7 +6,7 @@ const model = defineModel<boolean>({ required: true });
 
 <template>
 	<label for="sideToggleSwitch" class="mt-8 leading-7 text-5">
-		Side:
+		side:
 		<div class="inline-flex items-center gap-1">
 			blue
 			<button
@@ -18,7 +18,7 @@ const model = defineModel<boolean>({ required: true });
 				@click="model = !model"
 			>
 				<span
-					class="absolute top-[0.09375rem] left-[0.0625rem] w-[1.125rem] h-[1.125rem] rounded-1/2 shadow-[var(--vp-shadow-1)] transition-250"
+					class="absolute top-[0.09375rem] left-[0.09375rem] w-[1.125rem] h-[1.125rem] rounded-1/2 shadow-[var(--vp-shadow-1)] transition-250"
 					:class="model ? 'bg-red translate-x-[1.125rem]' : 'bg-blue'"
 				/>
 			</button>
