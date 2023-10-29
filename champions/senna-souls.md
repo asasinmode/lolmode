@@ -165,7 +165,9 @@ Senna can get souls from champions she hits twice in the span of 4 seconds. Cool
 - 6.(6) per minute on level 6
 - 7.5 per minute on level 11
 
-Because the above is virtually impossible to achieve the number of souls Senna can gain from champions is adjustable (in [results](#results)) and these values are here solely for reference. The default value is 1.5 stack per champion per minute.
+::: tip
+Because the above is virtually impossible to achieve the number of souls Senna can gain from champions is adjustable in [results](#results). These values should be used for reference. The default value is 1.5 stack per champion per minute.
+:::
 
 ### scuttle crab
 
@@ -175,7 +177,7 @@ At 10 minutes this gives the total of:
 
 - 3 scuttle crabs
 
-:::details
+::: details
 3:30 - 3:45 - 1<br/>
 6:15 - 6:30 - 2<br/>
 9:00 - 9:15 - 3
@@ -185,7 +187,7 @@ Between 10 and 20 minutes the total is:
 
 - 3 scuttle crabs
 
-:::details
+::: details
 11:45 - 12:00 - 1<br/>
 14:30 - 14:45 - 2<br/>
 17:15 - 17-30 - 3
@@ -193,12 +195,17 @@ Between 10 and 20 minutes the total is:
 
 ### soul drop rates
 
-According to [Senna wiki](https://leagueoflegends.fandom.com/wiki/Senna/LoL). Can be adjusted in [details](#details).
+According to [Senna wiki](https://leagueoflegends.fandom.com/wiki/Senna/LoL).
 
 | source / who kills      | senna                                             | ally                                            |
 |-------------------------|---------------------------------------------------|-------------------------------------------------|
 | minions / krugs / gromp | {{ (killedMinionSoulChance * 100).toFixed(2) }}%  | {{ (allyMinionSoulChance * 100).toFixed(2) }}%  |
 | scuttle crab            | {{ (killedScuttleSoulChance * 100).toFixed(2) }}% | {{ (allyScuttleSoulChance * 100).toFixed(2) }}% |
+
+
+::: tip
+Can be adjusted in [details](#details)
+:::
 
 ## sources
 
