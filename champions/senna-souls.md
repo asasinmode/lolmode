@@ -10,15 +10,15 @@ import { ref } from 'vue';
 
 import WeightInput from '../components/WeightInput.vue';
 import SideToggle from '../components/SideToggle.vue';
-
+25 / 3 / 100
 const isRed = ref(false);
 const includeScuttle = ref(false);
 const isFarming = ref(false);
 
-const minionsWavesAt10 = 1
-const minionWavesBetween10And20 = 2
-const cannonWavesAt10 = 5
-const cannonWavesBetween10And20 = 5
+const killedMinionSoulChance = 25 / 3 / 100
+const killedScuttleSoulChance = 1
+const allyMinionSoulChance = 28 / 100
+const allyScuttleSoulChance = 1
 
 const parsedSoulsPerChampion = ref(1.5)
 const rawSoulsPerChampion = ref(1.5)
@@ -57,7 +57,7 @@ Detailed explanations of various variables can be found in the [FAQ](#faq) at th
 
 ## details
 
-explicitly explained reults/values
+explicitly explained results/values
 
 ## FAQ
 
@@ -195,10 +195,10 @@ Between 10 and 20 minutes the total is:
 
 According to [Senna wiki](https://leagueoflegends.fandom.com/wiki/Senna/LoL). Can be adjusted in [details](#details).
 
-| source / who kills      | senna  | ally |
-|-------------------------|--------|------|
-| minions / krugs / gromp | 8.(3)% | 28%  |
-| scuttle crab            | 100%   | 100% |
+| source / who kills      | senna                                             | ally                                            |
+|-------------------------|---------------------------------------------------|-------------------------------------------------|
+| minions / krugs / gromp | {{ (killedMinionSoulChance * 100).toFixed(2) }}%  | {{ (allyMinionSoulChance * 100).toFixed(2) }}%  |
+| scuttle crab            | {{ (killedScuttleSoulChance * 100).toFixed(2) }}% | {{ (allyScuttleSoulChance * 100).toFixed(2) }}% |
 
 ## sources
 
