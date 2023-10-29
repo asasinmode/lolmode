@@ -32,7 +32,7 @@ const model = defineModel<boolean>({ required: true });
 			@click="model = !model"
 		>
 			<span
-				class="absolute top-[0.09375rem] left-[0.09375rem] w-[1.125rem] h-[1.125rem] rounded-1/2 shadow-[var(--vp-shadow-1)] transition-250"
+				class="absolute top-[0.0625rem] left-[0.0625rem] w-[1.125rem] h-[1.125rem] rounded-1/2 shadow-[var(--vp-shadow-1)] transition-250"
 				:class="model
 					? ['translate-x-[1.125rem]', trueClass ?? 'bg-[var(--vp-c-brand-1)]']
 					: [falseClass ?? 'bg-[var(--vp-c-neutral-inverse)]']
