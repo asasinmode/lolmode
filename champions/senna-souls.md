@@ -110,7 +110,7 @@ Detailed explanations of various variables can be found in the [FAQ](#faq) at th
 </div>
 
 - {{ formatNumber(computedTotalAt10) }} souls at 10 minutes ({{ formatNumber(computedTotalAt10 / 10) }} / min)
-- {{ formatNumber(computedTotalAt20) }} souls at 20 minutes ({{ formatNumber(computedTotalAt20 / 10) }} / min)
+- {{ formatNumber(computedTotalAt20) }} souls at 20 minutes ({{ formatNumber(computedTotalAt20 / 20) }} / min)
 
 <table>
   <thead>
@@ -128,35 +128,35 @@ Detailed explanations of various variables can be found in the [FAQ](#faq) at th
       <td>{{ formatNumber(computedMinionSoulsAt10) }}</td>
       <td>{{ formatNumber(computedMinionSoulsAt10 / 10) }}</td>
       <td>{{ formatNumber(computedMinionSoulsAt20) }}</td>
-      <td>{{ formatNumber(computedMinionSoulsAt20 / 10) }}</td>
+      <td>{{ formatNumber(computedMinionSoulsAt20 / 20) }}</td>
     </tr>
     <tr>
       <td>cannon minions</td>
       <td>{{ formatNumber(computedCannonSoulsPer10) }}</td>
       <td>{{ formatNumber(computedCannonSoulsPer10 / 10) }}</td>
       <td>{{ formatNumber(computedCannonSoulsAt20) }}</td>
-      <td>{{ formatNumber(computedCannonSoulsAt20 / 10) }}</td>
+      <td>{{ formatNumber(computedCannonSoulsAt20 / 20) }}</td>
     </tr>
     <tr>
       <td>{{ isRed ? 'gromp' : 'krugs' }}</td>
       <td>{{ formatNumber(computedMonsterSoulsAt10) }}</td>
       <td>{{ formatNumber(computedMonsterSoulsAt10 / 10) }}</td>
       <td>{{ formatNumber(computedMonsterSoulsPost10Per10) }}</td>
-      <td>{{ formatNumber(computedMonsterSoulsPost10Per10 / 10) }}</td>
+      <td>{{ formatNumber(computedMonsterSoulsPost10Per10 / 20) }}</td>
     </tr>
     <tr>
       <td>champions (2)</td>
       <td>{{ formatNumber(computedChampionSoulsAt10) }}</td>
       <td>{{ formatNumber(computedChampionSoulsAt10 / 10) }}</td>
       <td>{{ formatNumber(computedChampionSoulsPost10Per10) }}</td>
-      <td>{{ formatNumber(computedChampionSoulsPost10Per10 / 10) }}</td>
+      <td>{{ formatNumber(computedChampionSoulsPost10Per10 / 20) }}</td>
     </tr>
     <tr v-if="includeScuttle">
       <td>scuttle crab</td>
       <td>{{ formatNumber(computedScuttleSoulsPer10) }}</td>
       <td>{{ formatNumber(computedScuttleSoulsPer10 / 10) }}</td>
       <td>{{ formatNumber(computedScuttleSoulsPer10) }}</td>
-      <td>{{ formatNumber(computedScuttleSoulsPer10 / 10) }}</td>
+      <td>{{ formatNumber(computedScuttleSoulsPer10 / 20) }}</td>
     </tr>
   </tbody>
 </table>
