@@ -81,7 +81,7 @@ You can toggle between red and blue side, whether to include scuttle crab and wh
 
 ### waves
 
-First wave meets in the bot lane at 1:38. All subsequent waves meet in 30 seconds intervals starting from 2:00 (2:00, 2:30, 3:00 and so on). All calculations assume that the moment the waves collide is the moment they die. In other words, wave that gets to lane at 10:00 is the last one to be included in _at 10_ and _pre 10 per minute_ calculations. Same for _10-20 mins_ and _post 10 per minute_.
+First wave meets in the bot lane at 1:38. Subsequent waves meet in 30 second intervals starting from 2:00. All calculations assume that the moment the waves collide is the moment they die. In other words, wave that gets to lane at 10:00 is the last one to be included in _at 10_ and _pre 10 per minute_ calculations. Same for _10-20 mins_ and _post 10 per minute_.
 
 At 10 minutes this means:
 
@@ -107,7 +107,7 @@ At 10 minutes this means:
 08:30 - 15 - c<br/>
 09:00 - 16<br/>
 09:30 - 17<br/>
-10:00 - 18 - c<br/>
+10:00 - 18 - c
 :::
 
 Between 10 and 20 minutes (wave that collides at 10:30 to wave that collides at 20:00):
@@ -136,26 +136,36 @@ Between 10 and 20 minutes (wave that collides at 10:30 to wave that collides at 
 18:30 - 17<br/>
 19:00 - 18 - c<br/>
 19:30 - 19<br/>
-20:00 - 20<br/>
+20:00 - 20
 :::
 
 ### camps (krugs / gromp)
 
-First camp kill is skipped (doesn't get included in soul calculations). Camps are assumed to be killed on spawn + 10 seconds and respawn every 2:15 which means:
-
-1. Krug/gromp spawns at 1:42, killed at 1:52. No souls from this one.
-2. Respawns at 3:07, killed at 3:17. Souls count from now onward.
-3. Respawns at 5:32, killed at 5:42 and so on.
+First camp kill is skipped (doesn't get included in soul calculations). Camps are assumed to be killed on spawn + 16 seconds and respawn every 2:15 which means:
 
 At 10 minutes the above gives the total of:
 
-- 
-- 
+- 3 gromps
+- 24 krugs (3 big, 3 medium, 18 small)
+
+::: details
+1:42 - 1:58 - doesn't count<br/>
+4:03 - 4:19 - 1<br/>
+6:34 - 6:50 - 2<br/>
+9:05 - 9:21 - 3
+:::
 
 Between 10 and 20 minutes the totals are:
 
-- 
-- 
+- 4 gromps
+- 32 krugs (4 big, 4 medium, 24 small)
+
+::: details
+11:37 - 11:53 - 1<br/>
+14:08 - 14:24 - 2<br/>
+16:39 - 16:55 - 3<br/>
+19:10 - 19:26 - 4
+:::
 
 ### soul drop rates
 
