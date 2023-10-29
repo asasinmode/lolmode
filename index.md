@@ -5,7 +5,7 @@ title: home
 hero:
   name: lolmode
   text: various league stuff
-  tagline: if something needs calculating contact me
+  tagline: "current patch: 13.21"
   image:
     light: /cupcake.svg
     dark: /cupcake_dark.svg
@@ -13,14 +13,14 @@ hero:
     
   actions:
     - theme: brand
-      text: senna
+      text: senna souls
       link: /champions/senna-souls
 
 features:
-  - title: title1
-    details: detalis1
-  - title: title2
-    details: details2
-  - title: title3
-    details: details3
+  - title: adjustable values
+    details: check hypothetical or old patch values
+  - title: I tried my best
+    details: if there are improvements to be made let me know
+  - title: contact me
+    details: if something needs calculating
 ---
