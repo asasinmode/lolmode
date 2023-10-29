@@ -6,7 +6,7 @@ head:
 ---
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 
 import FloatInput from '../components/FloatInput.vue';
 import SideToggle from '../components/SideToggle.vue';
@@ -19,7 +19,7 @@ const parsedSoulsPerChampion = ref(1.5);
 const rawSoulsPerChampion = ref(1.5);
 
 function updateSoulsPerChampionPerMinute() {
-  parsedSoulsPerChampion.value = rawSoulsPerChampion.value;
+	parsedSoulsPerChampion.value = rawSoulsPerChampion.value;
 }
 
 const parsedMinionSoulDropRate = ref(0);
@@ -35,12 +35,35 @@ setAllyMinionSoulDropRate(28 / 100);
 allyRawMinionSoulDropRate.value = '28';
 
 function setMinionSoulDropRate(value: number) {
-  parsedMinionSoulDropRate.value = value;
+	parsedMinionSoulDropRate.value = value;
 }
 
 function setAllyMinionSoulDropRate(value: number) {
-  allyParsedMinionSoulDropRate.value = value;
+	allyParsedMinionSoulDropRate.value = value;
 }
+
+const minionsUntil10 = 108;
+const minionsAfter10Per10 = 120;
+const cannonsPer10 = 6;
+
+const computedMinionSoulDropRate = computed(() => isFarming.value ? parsedMinionSoulDropRate.value : allyParsedMinionSoulDropRate.value);
+
+const computedMinionSoulsAt10 = computed(() => minionsUntil10 * computedMinionSoulDropRate.value);
+const computedMinionSoulsAfter10Per10 = computed(() => minionsAfter10Per10 * computedMinionSoulDropRate.value);
+const computedCannonSoulsPer10 = computed(() => cannonsPer10 * computedMinionSoulDropRate.value);
+
+const krugsUntil10 = 24;
+const krugsPost10Per10 = 32;
+const grompsUntil10 = 3;
+const grompsPost10Per10 = 4;
+
+const computedMonsterSoulsUntil10 = computed(() => (isRed.value ? krugsUntil10 : krugsUntil10) * allyParsedMinionSoulDropRate.value);
+const computedMonsterSoulsPost10Per10 = computed(() => (isRed.value ? krugsPost10Per10 : grompsPost10Per10) * allyParsedMinionSoulDropRate.value);
+
+const scuttlesPer10 = 3;
+const computedScuttlesPer10 = computed(() => includeScuttle.value ? scuttlesPer10 : 0);
+
+const computedScuttleSoulsPer10 = computed(() => computedScuttlesPer10.value * allyParsedMinionSoulDropRate.value);
 </script>
 
 # Senna souls
@@ -94,9 +117,9 @@ First wave meets in the bot lane at 1:38. Subsequent waves meet in 30 second int
 
 At 10 minutes this means:
 
-- 18 waves total (6 cannon)
-- 108 melee/caster minions
-- 6 cannon minions
+- 18 waves total ({{ cannonsPer10 }} cannon)
+- {{ minionsUntil10 }} melee/caster minions
+- {{ cannonsPer10 }} cannon minions
 
 ::: details
 01:38 - 1<br/>
@@ -121,9 +144,9 @@ At 10 minutes this means:
 
 Between 10 and 20 minutes (wave that collides at 10:30 to wave that collides at 20:00):
 
-- 20 waves total (6 cannon)
-- 120 melee/caster minions
-- 6 cannon minions
+- 20 waves total ({{ cannonsPer10 }} cannon)
+- {{ minionsAfter10Per10 }} melee/caster minions
+- {{ cannonsPer10 }} cannon minions
 
 ::: details
 10:30 - 1<br/>
@@ -154,8 +177,8 @@ First camp kill is skipped (doesn't get included in soul calculations). Camps ar
 
 At 10 minutes the above gives the total of:
 
-- 3 gromps
-- 24 krugs (3 big, 3 medium, 18 small)
+- {{ grompsUntil10 }} gromps
+- {{ krugsUntil10 }} krugs (3 big, 3 medium, 18 small)
 
 ::: details
 1:42 - 1:58 - doesn't count<br/>
@@ -166,8 +189,8 @@ At 10 minutes the above gives the total of:
 
 Between 10 and 20 minutes the totals are:
 
-- 4 gromps
-- 32 krugs (4 big, 4 medium, 24 small)
+- {{ grompsPost10Per10 }} gromps
+- {{ krugsPost10Per10 }} krugs (4 big, 4 medium, 24 small)
 
 ::: details
 11:37 - 11:53 - 1<br/>
@@ -184,6 +207,10 @@ Senna can get souls from champions she hits twice in the span of 4 seconds. Cool
 - 6.(6) per minute on level 6
 - 7.5 per minute on level 11
 
+::: warning
+champion soul stacking starts calculating from <ins>1:40</ins>
+:::
+
 ::: tip
 Because the above is virtually impossible to achieve the number of souls Senna can gain from champions is adjustable in [values](#values). These values should be used for reference. The default value is 1.5 stack per champion per minute.
 :::
@@ -194,7 +221,7 @@ Scuttle crab spawns at 3:30 and respawns every 2:30 minutes. Calculations assume
 
 At 10 minutes this gives the total of:
 
-- 3 scuttle crabs
+- {{ scuttlesPer10 }} scuttle crabs
 
 ::: details
 3:30 - 3:45 - 1<br/>
@@ -204,7 +231,7 @@ At 10 minutes this gives the total of:
 
 Between 10 and 20 minutes the total is:
 
-- 3 scuttle crabs
+- {{ scuttlesPer10 }} scuttle crabs
 
 ::: details
 11:45 - 12:00 - 1<br/>
