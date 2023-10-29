@@ -4,14 +4,18 @@ import { ref } from 'vue';
 import WeightInput from '../components/WeightInput.vue';
 import SideToggle from '../components/SideToggle.vue';
 
+const isRed = ref(false);
+const minionsWavesAt10 = 1
+const minionWavesBetween10And20 = 2
+const cannonWavesAt10 = 5
+const cannonWavesBetween10And20 = 5
+
 const rawWhitesWeight = ref(90);
 const parsedWhitesWeight = ref(90);
 
 function updateParsedWeight() {
   parsedWhitesWeight.value = rawWhitesWeight.value;
 }
-
-const isRed = ref(false);
 </script>
 
 # Senna souls
@@ -53,6 +57,25 @@ explicitly explained reults/values
 
 ## FAQ
 
-### where did the senna soul drop rates come from?
+### waves how
 
-I 
+First wave meets in the bot lane at 1:38. All subsequent waves meet in 30 seconds interval starting from 2:00 (2:00, 2:30, 3:00 and so on). All calculations assume that the moment the waves collide is the moment they die. In other words, wave that gets to lane at 10:00 is the last one to be included in _at 10_ and _pre 10 per minute_ calculations. Same for _10-20 mins_ and _post 10 per minute_.
+
+At 10 minutes this means:
+
+- 18 waves total (6 cannon)
+- 108 melee/caster minions
+- 6 cannon minions
+
+Between 10 and 20 minutes (wave that collides at 10:30 to wave that collides at 20:00):
+
+- 20 waves total (6 cannon)
+- 120 melee/caster minions
+- 6 cannon minions
+
+### soul sources
+
+I assum Senna is in the bot lane and there are 2 other champions she can hit to get souls. Besides that there are minions and lane camp (krugs / gromp).
+
+### soul drop rates
+
