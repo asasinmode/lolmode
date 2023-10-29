@@ -1,4 +1,4 @@
-# lol
+# lolmode
 
 [Vitepress](https://vitepress.dev/) website with various league of legends related stuff.
 

@@ -12,9 +12,26 @@ body {
 	--vp-home-hero-name-color: transparent;
 	--vp-home-hero-name-background: -webkit-linear-gradient(
 		120deg,
-		#005A82 10%,
-		#0AC8B9
+		var(--vp-c-hero-gradient-1) 10%,
+		var(--vp-c-hero-gradient-2)
 	);
-	--vp-button-brand-bg: #0397AB;
-	--vp-button-brand-hover-bg: #005A82;
+	--vp-c-brand-1: #005A82;
+  --vp-c-brand-2: #0A323C;
+  --vp-c-brand-3: #091428;
+  --vp-c-brand-soft: #0A1428;
+	--vp-c-hero-gradient-1: var(--vp-c-brand-1);
+	--vp-c-hero-gradient-2: #0397AB;
+	--vp-button-brand-bg: var(--vp-c-brand-1);
+	--vp-button-brand-hover-bg: #0397AB;
+}
+
+:root.dark {
+	--vp-c-brand-1: #0AC8B9;
+  --vp-c-brand-2: #0397AB;
+  --vp-c-brand-3: #005A82;
+  --vp-c-brand-soft: #CDFAFA;
+	--vp-c-hero-gradient-1: var(--vp-c-brand-3);
+	--vp-c-hero-gradient-2: var(--vp-c-brand-1);
+	--vp-button-brand-bg: var(--vp-c-brand-3);
+	--vp-button-brand-hover-bg: var(--vp-c-brand-2);
 }

@@ -14,7 +14,7 @@ hero:
   actions:
     - theme: brand
       text: senna
-      link: /champions/senna
+      link: /champions/senna-souls
 
 features:
   - title: title1
