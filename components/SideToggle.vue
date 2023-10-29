@@ -5,63 +5,24 @@ const model = defineModel<boolean>({ required: true });
 </script>
 
 <template>
-	<div class="flex items-center gap-2">
-		<label for="sideToggleSwitch" class="inline">blue</label>
-		<button
-			id="sideToggleSwitch"
-			class="VPSwitch"
-			type="button"
-			role="switch"
-			:aria-checked="model"
-			@click="model = !model"
-		>
-			<span class="check">
-				<span class="icon" :class="model ? 'bg-red' : 'bg-blue'" />
-			</span>
-		</button>
-		<label for="sideToggleSwitch" class="inline">red</label>
-	</div>
+	<label for="sideToggleSwitch" class="mt-8 leading-7 text-5">
+		Side:
+		<div class="inline-flex items-center gap-1">
+			blue
+			<button
+				id="sideToggleSwitch"
+				class="relative rounded-[0.6875rem] inline w-10 h-[1.375rem] shrink-0 border border-solid border-[var(--vp-input-border-color)] bg-[var(--vp-input-switch-bg-color)] transition-border-color transition-250 hover:border-[var(--vp-c-brand-1)]"
+				type="button"
+				role="switch"
+				:aria-checked="model"
+				@click="model = !model"
+			>
+				<span
+					class="absolute top-[0.09375rem] left-[0.0625rem] w-[1.125rem] h-[1.125rem] rounded-1/2 shadow-[var(--vp-shadow-1)] transition-250"
+					:class="model ? 'bg-red translate-x-[1.125rem]' : 'bg-blue'"
+				/>
+			</button>
+			red
+		</div>
+	</label>
 </template>
-
-<style scoped>
-.VPSwitch {
-  position: relative;
-  border-radius: 11px;
-  display: inline;
-  width: 40px;
-  height: 22px;
-  flex-shrink: 0;
-  border: 1px solid var(--vp-input-border-color);
-  background-color: var(--vp-input-switch-bg-color);
-}
-
-.VPSwitch:hover {
-  border-color: var(--vp-c-brand-1);
-}
-
-.check {
-  position: absolute;
-  top: 1.5px;
-  left: 1px;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background-color: var(--vp-c-neutral-inverse);
-  box-shadow: var(--vp-shadow-1);
-  transition: transform 0.25s;
-}
-
-.VPSwitch[aria-checked=true] .check{
-	transform: translateX(18px);
-}
-
-.icon {
-  position: relative;
-  display: block;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  overflow: hidden;
-  transition: background-color 0.25s;
-}
-</style>
