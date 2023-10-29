@@ -1,0 +1,20 @@
+body {
+	@apply font-sans
+}
+
+/**
+ * Customize default theme styling by overriding CSS variables:
+ * https://github.com/vuejs/vitepress/blob/main/src/client/theme-default/styles/vars.css
+ * https://vitepress.dev/guide/extending-default-theme#customizing-css
+ */
+
+:root {
+	--vp-home-hero-name-color: transparent;
+	--vp-home-hero-name-background: -webkit-linear-gradient(
+		120deg,
+		#005A82 10%,
+		#0AC8B9
+	);
+	--vp-button-brand-bg: #0397AB;
+	--vp-button-brand-hover-bg: #005A82;
+}
