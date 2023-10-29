@@ -20,11 +20,11 @@ const minionWavesBetween10And20 = 2
 const cannonWavesAt10 = 5
 const cannonWavesBetween10And20 = 5
 
-const rawWhitesWeight = ref(90);
-const parsedWhitesWeight = ref(90);
+const parsedSoulsPerChampion = ref(1.5)
+const rawSoulsPerChampion = ref(1.5)
 
-function updateParsedWeight() {
-  parsedWhitesWeight.value = rawWhitesWeight.value;
+function updateSoulsPerChampionPerMinute() {
+  parsedSoulsPerChampion.value = rawSoulsPerChampion.value;
 }
 </script>
 
@@ -51,19 +51,9 @@ Detailed explanations of various variables can be found in the [FAQ](#faq) at th
 | {{ isRed ? 'gromp' : 'krugs' }} |            |                   |            |                    |
 | champions (2)                   |            |                   |            |                    |
 
-- <WeightInput id="whitesWeight" v-model="rawWhitesWeight" @focusout="updateParsedWeight" label="egg whites" />
-- {{ Math.round(parsedWhitesWeight * 0.5) }}g sugar
-- salt
-- {{ Math.round(parsedWhitesWeight * 1.2) }}g almond flour
-- {{ Math.round(parsedWhitesWeight * 1.6) }}g powdered sugar
-
 ## values
 
-- {{ parsedWhitesWeight }}g egg whites
-- {{ Math.round(parsedWhitesWeight * 0.5) }}g sugar
-- salt
-- {{ Math.round(parsedWhitesWeight * 1.2) }}g almond flour
-- {{ Math.round(parsedWhitesWeight * 1.6) }}g powdered sugar
+- <WeightInput id="soulsPerChampion" v-model="rawSoulsPerChampion" @focusout="updateSoulsPerChampionPerMinute" label="souls per champion per minute" />
 
 ## details
 
@@ -141,7 +131,7 @@ Between 10 and 20 minutes (wave that collides at 10:30 to wave that collides at 
 
 ### camps (krugs / gromp)
 
-First camp kill is skipped (doesn't get included in soul calculations). Camps are assumed to be killed on spawn + 16 seconds and respawn every 2:15 which means:
+First camp kill is skipped (doesn't get included in soul calculations). Camps are assumed to be killed on spawn + 16 seconds and respawn every 2:15 minutes which means:
 
 At 10 minutes the above gives the total of:
 
@@ -177,17 +167,17 @@ Senna can get souls from champions she hits twice in the span of 4 seconds. Cool
 
 Because the above is virtually impossible to achieve the number of souls Senna can gain from champions is adjustable (in [results](#results)) and these values are here solely for reference. The default value is 1.5 stack per champion per minute.
 
-#### scuttle crab
+### scuttle crab
 
-Scuttle crab spawns at 3:30 and respawns every 2:30. Calculations assume it's killed on spawn + 15 seconds.
+Scuttle crab spawns at 3:30 and respawns every 2:30 minutes. Calculations assume it's killed on spawn + 15 seconds.
 
 At 10 minutes this gives the total of:
 
 - 3 scuttle crabs
 
 :::details
-3:30 - 3:45 - 1
-6:15 - 6:30 - 2
+3:30 - 3:45 - 1<br/>
+6:15 - 6:30 - 2<br/>
 9:00 - 9:15 - 3
 :::
 
@@ -196,13 +186,19 @@ Between 10 and 20 minutes the total is:
 - 3 scuttle crabs
 
 :::details
-11:45 - 12:00 - 1
-14:30 - 14:45 - 2
+11:45 - 12:00 - 1<br/>
+14:30 - 14:45 - 2<br/>
 17:15 - 17-30 - 3
 :::
 
 ### soul drop rates
 
+According to [Senna wiki](https://leagueoflegends.fandom.com/wiki/Senna/LoL). Can be adjusted in [details](#details).
+
+| source / who kills      | senna  | ally |
+|-------------------------|--------|------|
+| minions / krugs / gromp | 8.(3)% | 28%  |
+| scuttle crab            | 100%   | 100% |
 
 ## sources
 
