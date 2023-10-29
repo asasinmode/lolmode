@@ -68,7 +68,9 @@ explicitly explained reults/values
 
 By default I include: minions, lane camp (krugs / gromp) and 2 enemy champions. Below are more detailed explanations on how these are calculated.
 
-You can toggle between sides, whether to include scuttle crab and whether the Senna is farming or fasting.
+Soul from leashing red / blue buff is skipped.
+
+You can toggle between red and blue side, whether to include scuttle crab and whether the Senna is farming or fasting.
 
 ### waves
 
@@ -80,18 +82,62 @@ At 10 minutes this means:
 - 108 melee/caster minions
 - 6 cannon minions
 
+::: details
+01:38 - 1<br/>
+02:00 - 2<br/>
+02:30 - 3 - c<br/>
+03:00 - 4<br/>
+03:30 - 5<br/>
+04:00 - 6 - c<br/>
+04:30 - 7<br/>
+05:00 - 8<br/>
+05:30 - 9 - c<br/>
+06:00 - 10<br/>
+06:30 - 11<br/>
+07:00 - 12 - c<br/>
+07:30 - 13<br/>
+08:00 - 14<br/>
+08:30 - 15 - c<br/>
+09:00 - 16<br/>
+09:30 - 17<br/>
+10:00 - 18 - c<br/>
+:::
+
 Between 10 and 20 minutes (wave that collides at 10:30 to wave that collides at 20:00):
 
 - 20 waves total (6 cannon)
 - 120 melee/caster minions
 - 6 cannon minions
 
+::: details
+10:30 - 1<br/>
+11:00 - 2<br/>
+11:30 - 3 - c<br/>
+12:00 - 4<br/>
+12:30 - 5<br/>
+13:00 - 6 - c<br/>
+13:30 - 7<br/>
+14:00 - 8<br/>
+14:30 - 9 - c<br/>
+15:00 - 10<br/>
+15:30 - 11<br/>
+16:00 - 12 - c<br/>
+16:30 - 13<br/>
+17:00 - 14<br/>
+17:30 - 15 - c<br/>
+18:00 - 16<br/>
+18:30 - 17<br/>
+19:00 - 18 - c<br/>
+19:30 - 19<br/>
+20:00 - 20<br/>
+:::
+
 ### camps (krugs / gromp)
 
-First camp kill is skipped (doesn't get included in soul calculations). Camps are assumed to be killed on spawn + 10 seconds which means:
+First camp kill is skipped (doesn't get included in soul calculations). Camps are assumed to be killed on spawn + 10 seconds and respawn every 2:15 which means:
 
 1. Krug/gromp spawns at 1:42, killed at 1:52. No souls from this one.
-2. Respawns every 2:15 so at 3:07, killed at 3:17. Souls count from now onward.
+2. Respawns at 3:07, killed at 3:17. Souls count from now onward.
 3. Respawns at 5:32, killed at 5:42 and so on.
 
 At 10 minutes the above gives the total of:
