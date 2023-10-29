@@ -29,9 +29,11 @@ If you are interested in details check the [FAQ](#faq) at the bottom.
 
 ## results
 
-<side-toggle id="sideToggle" v-model="isRed" title="side" false-label="blue" true-label="red" />
-<side-toggle id="fastingToggle" v-model="isFarming" title="farming style" false-label="fasting" true-label="farming" />
-<side-toggle id="scuttleToggle" v-model="includeScuttle" title="include scuttle" false-label="no" true-label="yes" />
+<div class="w-full flex gap-6 flex-col sm:flex-row justify-between border border-[var(--vp-input-border-color)] rounded-lg p-4 my-4">
+  <side-toggle id="sideToggle" v-model="isRed" title="side" false-label="blue" true-label="red" />
+  <side-toggle id="fastingToggle" v-model="isFarming" title="farming style" false-label="fasting" true-label="farming" />
+  <side-toggle id="scuttleToggle" v-model="includeScuttle" title="include scuttle" false-label="no" true-label="yes" />
+</div>
 
 - XX souls at 10 minutes (Y / min)
 - XX souls 10-20 minutes (Y / min)
