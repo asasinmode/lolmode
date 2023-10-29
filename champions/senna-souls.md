@@ -8,20 +8,20 @@ head:
 <script setup lang="ts">
 import { ref } from 'vue';
 
-import WeightInput from '../components/WeightInput.vue';
+import FloatInput from '../components/FloatInput.vue';
 import SideToggle from '../components/SideToggle.vue';
-25 / 3 / 100
+
 const isRed = ref(false);
 const includeScuttle = ref(false);
 const isFarming = ref(false);
 
-const killedMinionSoulChance = 25 / 3 / 100
-const killedScuttleSoulChance = 1
-const allyMinionSoulChance = 28 / 100
-const allyScuttleSoulChance = 1
+const killedMinionSoulChance = 25 / 3 / 100;
+const killedScuttleSoulChance = 1;
+const allyMinionSoulChance = 28 / 100;
+const allyScuttleSoulChance = 1;
 
-const parsedSoulsPerChampion = ref(1.5)
-const rawSoulsPerChampion = ref(1.5)
+const parsedSoulsPerChampion = ref(1.5);
+const rawSoulsPerChampion = ref(1.5);
 
 function updateSoulsPerChampionPerMinute() {
   parsedSoulsPerChampion.value = rawSoulsPerChampion.value;
@@ -53,7 +53,7 @@ Detailed explanations of various variables can be found in the [FAQ](#faq) at th
 
 ## values
 
-- <WeightInput id="soulsPerChampion" v-model="rawSoulsPerChampion" @focusout="updateSoulsPerChampionPerMinute" label="souls per champion per minute" />
+- <FloatInput id="soulsPerChampion" v-model="rawSoulsPerChampion" @focusout="updateSoulsPerChampionPerMinute" label="souls per champion per minute" />
 
 ## details
 
