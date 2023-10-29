@@ -42,28 +42,52 @@ function setAllyMinionSoulDropRate(value: number) {
 	allyParsedMinionSoulDropRate.value = value;
 }
 
-const minionsUntil10 = 108;
-const minionsAfter10Per10 = 120;
+function formatNumber(value: number) {
+	return Number(value.toFixed(2));
+}
+
+const minionsAt10 = 108;
+const minionsPost10Per10 = 120;
 const cannonsPer10 = 6;
 
 const computedMinionSoulDropRate = computed(() => isFarming.value ? parsedMinionSoulDropRate.value : allyParsedMinionSoulDropRate.value);
 
-const computedMinionSoulsAt10 = computed(() => minionsUntil10 * computedMinionSoulDropRate.value);
-const computedMinionSoulsAfter10Per10 = computed(() => minionsAfter10Per10 * computedMinionSoulDropRate.value);
-const computedCannonSoulsPer10 = computed(() => cannonsPer10 * computedMinionSoulDropRate.value);
+const computedMinionSoulsAt10 = computed(() => minionsAt10 * computedMinionSoulDropRate.value);
+const computedMinionSoulsAfter10Per10 = computed(() => minionsPost10Per10 * computedMinionSoulDropRate.value);
+const computedMinionSoulsAt20 = computed(() => computedMinionSoulsAt10.value + computedMinionSoulsAfter10Per10.value);
 
-const krugsUntil10 = 24;
+const computedCannonSoulsPer10 = computed(() => isFarming.value ? cannonsPer10 * computedMinionSoulDropRate.value : cannonsPer10);
+const computedCannonSoulsAt20 = computed(() => computedCannonSoulsPer10.value * 2)
+
+const krugsAt10 = 24;
 const krugsPost10Per10 = 32;
-const grompsUntil10 = 3;
+const grompsAt10 = 3;
 const grompsPost10Per10 = 4;
 
-const computedMonsterSoulsUntil10 = computed(() => (isRed.value ? krugsUntil10 : krugsUntil10) * allyParsedMinionSoulDropRate.value);
-const computedMonsterSoulsPost10Per10 = computed(() => (isRed.value ? krugsPost10Per10 : grompsPost10Per10) * allyParsedMinionSoulDropRate.value);
+const computedMonstersAt10 = computed(() => isRed.value ? grompsAt10 : krugsAt10);
+const computedMonstersPost10Per10 = computed(() => isRed.value ? grompsPost10Per10 : krugsPost10Per10);
+const computedMonsterSoulsAt10 = computed(() => computedMonstersAt10.value * allyParsedMinionSoulDropRate.value);
+const computedMonsterSoulsPost10Per10 = computed(() => computedMonstersPost10Per10.value * allyParsedMinionSoulDropRate.value);
+const computedMonsterSoulsAt20 = computed(() => computedMonsterSoulsAt10.value + computedMonsterSoulsPost10Per10.value);
 
 const scuttlesPer10 = 3;
 const computedScuttlesPer10 = computed(() => includeScuttle.value ? scuttlesPer10 : 0);
 
 const computedScuttleSoulsPer10 = computed(() => computedScuttlesPer10.value * allyParsedMinionSoulDropRate.value);
+const computedScuttleSoulsAt20 = computed(() => 2 * computedScuttleSoulsPer10.value);
+
+const computedChampionSoulsAt10 = computed(() => (8 + (1 / 3)) * parsedSoulsPerChampion.value * 2);
+const computedChampionSoulsPost10Per10 = computed(() => 10 * parsedSoulsPerChampion.value * 2);
+
+const computedTotalAt10 = computed(() => {
+	return computedMinionSoulsAt10.value + computedCannonSoulsPer10.value + computedCannonSoulsPer10.value + computedMonsterSoulsAt10.value + computedScuttleSoulsPer10.value + computedChampionSoulsAt10.value;
+});
+
+const computedTotalPost10Per10 = computed(() => {
+	return computedMinionSoulsAfter10Per10.value + computedCannonSoulsPer10.value + computedCannonSoulsPer10.value + computedMonstersPost10Per10.value + computedScuttleSoulsPer10.value + computedChampionSoulsPost10Per10.value;
+});
+
+const computedTotalAt20 = computed(() => computedTotalAt10.value + computedTotalPost10Per10.value);
 </script>
 
 # Senna souls
@@ -80,14 +104,57 @@ Detailed explanations of various variables can be found in the [FAQ](#faq) at th
   <side-toggle id="scuttleToggle" v-model="includeScuttle" title="include scuttle" false-label="no" true-label="yes" />
 </div>
 
-- XX souls at 10 minutes (Y / min)
-- XX souls 10-20 minutes (Y / min)
+- {{ formatNumber(computedTotalAt10) }} souls at 10 minutes (Y / min)
+- {{ formatNumber(computedTotalAt20) }} souls at 20 minutes (Y / min)
 
-| source / time                   | at 10 mins | pre 10 per minute | 10-20 mins | post 10 per minute |
-|---------------------------------|------------|-------------------|------------|--------------------|
-| minions                         |            |                   |            |                    |
-| {{ isRed ? 'gromp' : 'krugs' }} |            |                   |            |                    |
-| champions (2)                   |            |                   |            |                    |
+<table>
+  <thead>
+    <tr>
+      <th>source / time</th>
+      <th>total at 10</th>
+      <th>per minute at 10</th>
+      <th>total at 20</th>
+      <th>per minute at 20</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>minions</td>
+      <td>{{ formatNumber(computedMinionSoulsAt10) }}</td>
+      <td></td>
+      <td>{{ formatNumber(computedMinionSoulsAt20) }}</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>cannon minions</td>
+      <td>{{ formatNumber(computedCannonSoulsPer10) }}</td>
+      <td></td>
+      <td>{{ formatNumber(computedCannonSoulsAt20) }}</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>{{ isRed ? 'gromp' : 'krugs' }}</td>
+      <td>{{ formatNumber(computedMonsterSoulsAt10) }}</td>
+      <td></td>
+      <td>{{ formatNumber(computedMonsterSoulsPost10Per10) }}</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>champions (2)</td>
+      <td>{{ formatNumber(computedChampionSoulsAt10) }}</td>
+      <td></td>
+      <td>{{ formatNumber(computedChampionSoulsPost10Per10) }}</td>
+      <td></td>
+    </tr>
+    <tr v-if="includeScuttle">
+      <td>scuttle crab</td>
+      <td>{{ formatNumber(computedScuttleSoulsPer10) }}</td>
+      <td></td>
+      <td>{{ formatNumber(computedScuttleSoulsPer10) }}</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
 
 ## values
 
@@ -118,7 +185,7 @@ First wave meets in the bot lane at 1:38. Subsequent waves meet in 30 second int
 At 10 minutes this means:
 
 - 18 waves total ({{ cannonsPer10 }} cannon)
-- {{ minionsUntil10 }} melee/caster minions
+- {{ minionsAt10 }} melee/caster minions
 - {{ cannonsPer10 }} cannon minions
 
 ::: details
@@ -145,7 +212,7 @@ At 10 minutes this means:
 Between 10 and 20 minutes (wave that collides at 10:30 to wave that collides at 20:00):
 
 - 20 waves total ({{ cannonsPer10 }} cannon)
-- {{ minionsAfter10Per10 }} melee/caster minions
+- {{ minionsPost10Per10 }} melee/caster minions
 - {{ cannonsPer10 }} cannon minions
 
 ::: details
@@ -177,8 +244,8 @@ First camp kill is skipped (doesn't get included in soul calculations). Camps ar
 
 At 10 minutes the above gives the total of:
 
-- {{ grompsUntil10 }} gromps
-- {{ krugsUntil10 }} krugs (3 big, 3 medium, 18 small)
+- {{ grompsAt10 }} gromps
+- {{ krugsAt10 }} krugs (3 big, 3 medium, 18 small)
 
 ::: details
 1:42 - 1:58 - doesn't count<br/>
