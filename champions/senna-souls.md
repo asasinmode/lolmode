@@ -5,6 +5,9 @@ import WeightInput from '../components/WeightInput.vue';
 import SideToggle from '../components/SideToggle.vue';
 
 const isRed = ref(false);
+const includeScuttle = ref(false);
+const isFarming = ref(false);
+
 const minionsWavesAt10 = 1
 const minionWavesBetween10And20 = 2
 const cannonWavesAt10 = 5
@@ -26,7 +29,9 @@ If you are interested in details check the [FAQ](#faq) at the bottom.
 
 ## results
 
-<side-toggle v-model="isRed" />
+<side-toggle id="sideToggle" v-model="isRed" title="side" false-label="blue" true-label="red" />
+<side-toggle id="fastingToggle" v-model="isFarming" title="farming style" false-label="fasting" true-label="farming" />
+<side-toggle id="scuttleToggle" v-model="includeScuttle" title="include scuttle" false-label="no" true-label="yes" />
 
 - XX souls at 10 minutes (Y / min)
 - XX souls 10-20 minutes (Y / min)
