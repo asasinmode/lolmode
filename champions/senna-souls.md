@@ -32,7 +32,7 @@ function updateParsedWeight() {
 
 Maximum theoretical senna souls per minute calculator. Human error not taken into account. Subtract whatever you think it is from final results.
 
-If you are interested in details check the [FAQ](#faq) at the bottom.
+Detailed explanations of various variables can be found in the [FAQ](#faq) at the bottom.
 
 ## results
 
@@ -167,5 +167,43 @@ Between 10 and 20 minutes the totals are:
 19:10 - 19:26 - 4
 :::
 
+### champions
+
+Senna can get souls from champions she hits twice in the span of 4 seconds. Cooldown per champions is 6/5/4 seconds on levels 1/6/11. This means the THEORETICAL maximum number of souls Senna can get from a champion is:
+
+- 6 per minute on level 1
+- 6.(6) per minute on level 6
+- 7.5 per minute on level 11
+
+Because the above is virtually impossible to achieve the number of souls Senna can gain from champions is adjustable (in [results](#results)) and these values are here solely for reference. The default value is 1.5 stack per champion per minute.
+
+#### scuttle crab
+
+Scuttle crab spawns at 3:30 and respawns every 2:30. Calculations assume it's killed on spawn + 15 seconds.
+
+At 10 minutes this gives the total of:
+
+- 3 scuttle crabs
+
+:::details
+3:30 - 3:45 - 1
+6:15 - 6:30 - 2
+9:00 - 9:15 - 3
+:::
+
+Between 10 and 20 minutes the total is:
+
+- 3 scuttle crabs
+
+:::details
+11:45 - 12:00 - 1
+14:30 - 14:45 - 2
+17:15 - 17-30 - 3
+:::
+
 ### soul drop rates
 
+
+## sources
+
+- [League of Legends fandom wiki](https://leagueoflegends.fandom.com/wiki/League_of_Legends_Wiki)
