@@ -4,10 +4,11 @@ import { defineModel, defineProps } from 'vue';
 defineProps<{
 	id: string;
 	label: string;
+	isPercent?: boolean;
 }>();
 
 const emit = defineEmits<{
-	focusout: [FocusEvent];
+	focusout: [number];
 }>();
 
 const modelValue = defineModel<string | number>({ required: true });
@@ -16,14 +17,14 @@ function parseInput(event: FocusEvent) {
 	const value = parseFloat(`${(event.target as HTMLInputElement).value}`.replaceAll(/[^\d-.]/g, ''));
 
 	if (Number.isNaN(value) || value < 0) {
-		modelValue.value = 0;
+		modelValue.value = '0';
 	} else {
-		modelValue.value = value;
+		modelValue.value = `${Number(value.toFixed(2))}`;
 	}
 
-	(event.target as HTMLInputElement).value = modelValue.value.toString();
+	(event.target as HTMLInputElement).value = modelValue.value;
 
-	emit('focusout', event);
+	emit('focusout', value);
 }
 </script>
 
@@ -31,8 +32,8 @@ function parseInput(event: FocusEvent) {
 	<input
 		:id="id"
 		v-model="modelValue"
-		class="rounded-full w-15 min-w-15 bg-[#1b1b1f] color-[#ffffff] dark:bg-[#deded6] dark:color-[#161618] py-1 px-3 focus:(outline-[var(--vp-c-brand-3)] outline)"
+		class="rounded-full w-18 min-w-18 bg-[#1b1b1f] color-[#ffffff] dark:bg-[#deded6] dark:color-[#161618] py-1 px-3 focus:(outline-[#C89B3C] outline)"
 		@focusout="parseInput"
 	>
-	<label class="ml-[0.2rem]" :for="id">{{ label }}</label>
+	<label class="ml-[0.2rem]" :for="id">{{ isPercent ? '%' : '' }} {{ label }}</label>
 </template>

@@ -15,16 +15,31 @@ const isRed = ref(false);
 const includeScuttle = ref(false);
 const isFarming = ref(false);
 
-const killedMinionSoulChance = 25 / 3 / 100;
-const killedScuttleSoulChance = 1;
-const allyMinionSoulChance = 28 / 100;
-const allyScuttleSoulChance = 1;
-
 const parsedSoulsPerChampion = ref(1.5);
 const rawSoulsPerChampion = ref(1.5);
 
 function updateSoulsPerChampionPerMinute() {
   parsedSoulsPerChampion.value = rawSoulsPerChampion.value;
+}
+
+const parsedMinionSoulDropRate = ref(0);
+const rawMinionSoulDropRate = ref('');
+const allyParsedMinionSoulDropRate = ref(0);
+const allyRawMinionSoulDropRate = ref('');
+
+// 8.(3)%
+setMinionSoulDropRate(25 / 3 / 100);
+rawMinionSoulDropRate.value = '8.33';
+// 28%
+setAllyMinionSoulDropRate(28 / 100);
+allyRawMinionSoulDropRate.value = '28';
+
+function setMinionSoulDropRate(value: number) {
+  parsedMinionSoulDropRate.value = value;
+}
+
+function setAllyMinionSoulDropRate(value: number) {
+  allyParsedMinionSoulDropRate.value = value;
 }
 </script>
 
@@ -53,7 +68,9 @@ Detailed explanations of various variables can be found in the [FAQ](#faq) at th
 
 ## values
 
-- <FloatInput id="soulsPerChampion" v-model="rawSoulsPerChampion" @focusout="updateSoulsPerChampionPerMinute" label="souls per champion per minute" />
+- <FloatInput id="soulsPerChampion" v-model="rawSoulsPerChampion" @focusout="setMinionSoulDropRate" label="souls per champion per minute" />
+- <FloatInput id="minionSoulDropRate" v-model="rawMinionSoulDropRate" @focusout="setMinionSoulDropRate" label="chance for Senna-killed minion soul" is-percent />
+- <FloatInput id="allyMinionSoulDropRate" v-model="allyRawMinionSoulDropRate" @focusout="setAllyMinionSoulDropRate" label="chance for ally-killed minion soul" is-percent />
 
 ## details
 
@@ -67,7 +84,9 @@ By default I include: minions, lane camp (krugs / gromp) and 2 enemy champions. 
 
 Soul from leashing red / blue buff is skipped.
 
-You can toggle between red and blue side, whether to include scuttle crab and whether the Senna is farming or fasting.
+::: tip
+You can toggle between red and blue side, whether to include scuttle crab and whether the Senna is farming or fasting in [results](#results).
+:::
 
 ### waves
 
@@ -166,7 +185,7 @@ Senna can get souls from champions she hits twice in the span of 4 seconds. Cool
 - 7.5 per minute on level 11
 
 ::: tip
-Because the above is virtually impossible to achieve the number of souls Senna can gain from champions is adjustable in [results](#results). These values should be used for reference. The default value is 1.5 stack per champion per minute.
+Because the above is virtually impossible to achieve the number of souls Senna can gain from champions is adjustable in [values](#values). These values should be used for reference. The default value is 1.5 stack per champion per minute.
 :::
 
 ### scuttle crab
@@ -197,14 +216,14 @@ Between 10 and 20 minutes the total is:
 
 According to [Senna wiki](https://leagueoflegends.fandom.com/wiki/Senna/LoL).
 
-| source / who kills      | senna                                             | ally                                            |
-|-------------------------|---------------------------------------------------|-------------------------------------------------|
-| minions / krugs / gromp | {{ (killedMinionSoulChance * 100).toFixed(2) }}%  | {{ (allyMinionSoulChance * 100).toFixed(2) }}%  |
-| scuttle crab            | {{ (killedScuttleSoulChance * 100).toFixed(2) }}% | {{ (allyScuttleSoulChance * 100).toFixed(2) }}% |
+| source / who kills      | senna                        | ally                             |
+|-------------------------|------------------------------|----------------------------------|
+| minions / krugs / gromp | {{ rawMinionSoulDropRate }}% | {{ allyRawMinionSoulDropRate }}% |
+| scuttle crab            | 100%                         | 100%                             |
 
 
 ::: tip
-Can be adjusted in [details](#details)
+Minion soul drop rates can be adjusted in [values](#values).
 :::
 
 ## sources
