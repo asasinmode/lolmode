@@ -6,10 +6,11 @@ head:
 ---
 
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, provide, ref } from 'vue';
 
 import FloatInput from '../components/FloatInput.vue';
 import VariableToggle from '../components/VariableToggle.vue';
+import DetailedEquasion from '../components/DetailedEquasion.vue';
 
 const isRed = ref(false);
 const includeScuttle = ref(false);
@@ -53,11 +54,15 @@ const cannonsPer10 = 6;
 const computedMinionSoulDropRate = computed(() => isFarming.value ? parsedMinionSoulDropRate.value : allyParsedMinionSoulDropRate.value);
 
 const computedMinionSoulsAt10 = computed(() => minionsAt10 * computedMinionSoulDropRate.value);
+const computedMinionSoulsAt10PerMinute = computed(() => computedMinionSoulsAt10.value / 10);
 const computedMinionSoulsAfter10Per10 = computed(() => minionsPost10Per10 * computedMinionSoulDropRate.value);
 const computedMinionSoulsAt20 = computed(() => computedMinionSoulsAt10.value + computedMinionSoulsAfter10Per10.value);
+const computedMinionSoulsAt20PerMinute = computed(() => computedMinionSoulsAt20.value / 20);
 
 const computedCannonSoulsPer10 = computed(() => isFarming.value ? cannonsPer10 * computedMinionSoulDropRate.value : cannonsPer10);
+const computedCannonSoulsPer10PerMinute = computed(() => computedCannonSoulsPer10.value / 10);
 const computedCannonSoulsAt20 = computed(() => computedCannonSoulsPer10.value * 2);
+const computedCannonSoulsAt20PerMinute = computed(() => computedCannonSoulsAt20.value / 20);
 
 const krugsAt10 = 24;
 const krugsPost10Per10 = 32;
@@ -67,34 +72,39 @@ const grompsPost10Per10 = 4;
 const computedMonstersAt10 = computed(() => isRed.value ? grompsAt10 : krugsAt10);
 const computedMonstersPost10Per10 = computed(() => isRed.value ? grompsPost10Per10 : krugsPost10Per10);
 const computedMonsterSoulsAt10 = computed(() => computedMonstersAt10.value * allyParsedMinionSoulDropRate.value);
+const computedMonsterSoulsAt10PerMinute = computed(() => computedMonsterSoulsAt10.value / 10);
 const computedMonsterSoulsPost10Per10 = computed(() => computedMonstersPost10Per10.value * allyParsedMinionSoulDropRate.value);
 const computedMonsterSoulsAt20 = computed(() => computedMonsterSoulsAt10.value + computedMonsterSoulsPost10Per10.value);
+const computedMonsterSoulsAt20PerMinute = computed(() => computedMonsterSoulsAt20.value / 20);
 
 const scuttlesPer10 = 3;
 const computedScuttlesPer10 = computed(() => includeScuttle.value ? scuttlesPer10 : 0);
 
 const computedScuttleSoulsPer10 = computed(() => computedScuttlesPer10.value * allyParsedMinionSoulDropRate.value);
+const computedScuttleSoulsAtPer10PerMinute = computed(() => computedScuttleSoulsPer10.value / 10);
 const computedScuttleSoulsAt20 = computed(() => 2 * computedScuttleSoulsPer10.value);
+const computedScuttleSoulsAt20PerMinute = computed(() => computedScuttleSoulsAt20.value / 20);
 
 const botlaneChampions = 2;
 const pre10ChampionSoulMinutes = 8 + (1 / 3);
 
-const computedChampionSoulsAt10 = computed(() => {
-	return pre10ChampionSoulMinutes * parsedSoulsPerChampion.value * botlaneChampions;
-});
+const computedChampionSoulsAt10 = computed(() => pre10ChampionSoulMinutes * parsedSoulsPerChampion.value * botlaneChampions);
+const computedChampionSoulsAt10PerMinute = computed(() => computedChampionSoulsAt10.value / 10);
 const computedChampionSoulsPost10Per10 = computed(() => 10 * parsedSoulsPerChampion.value * 2);
+const computedChampionSoulsAt20 = computed(() => computedChampionSoulsAt10.value + computedChampionSoulsPost10Per10.value);
+const computedChampionSoulsAt20PerMinute = computed(() => computedChampionSoulsAt20.value / 20);
 
-const computedTotalAt10 = computed(() => {
-	return computedMinionSoulsAt10.value + computedCannonSoulsPer10.value + computedCannonSoulsPer10.value + computedMonsterSoulsAt10.value + computedScuttleSoulsPer10.value + computedChampionSoulsAt10.value;
-});
+const computedTotalAt10 = computed(() => computedMinionSoulsAt10.value + computedCannonSoulsPer10.value + computedMonsterSoulsAt10.value + computedScuttleSoulsPer10.value + computedChampionSoulsAt10.value);
+const computedTotalAt10PerMinute = computed(() => computedTotalAt10.value / 10);
 
-const computedTotalPost10Per10 = computed(() => {
-	return computedMinionSoulsAfter10Per10.value + computedCannonSoulsPer10.value + computedCannonSoulsPer10.value + computedMonstersPost10Per10.value + computedScuttleSoulsPer10.value + computedChampionSoulsPost10Per10.value;
-});
+const computedTotalPost10Per10 = computed(() => computedMinionSoulsAfter10Per10.value + computedCannonSoulsPer10.value + computedMonstersPost10Per10.value + computedScuttleSoulsPer10.value + computedChampionSoulsPost10Per10.value);
 
 const computedTotalAt20 = computed(() => computedTotalAt10.value + computedTotalPost10Per10.value);
+const computedTotalAt20PerMinute = computed(() => computedTotalAt20.value / 20);
 
 const detailsDisplayValues = ref(false);
+
+provide('detailedEquasionDisplayValues', detailsDisplayValues);
 </script>
 
 # Senna souls
@@ -106,13 +116,13 @@ Detailed explanations of various variables can be found in the [FAQ](#faq) at th
 ## results
 
 <div class="w-full flex gap-6 flex-col sm:flex-row sm:flex-wrap justify-between border border-[var(--vp-input-border-color)] rounded-lg p-4 mt-4 mb-8">
-  <variable-toggle id="sideToggle" v-model="isRed" label="side: (krugs / gromp)" false-label="blue" true-label="red" />
-  <variable-toggle id="fastingToggle" v-model="isFarming" label="farming style" false-label="fasting" true-label="farming" />
-  <variable-toggle id="scuttleToggle" v-model="includeScuttle" label="include scuttle" false-label="no" true-label="yes" />
+  <VariableToggle id="sideToggle" v-model="isRed" label="side: (krugs / gromp)" false-label="blue" true-label="red" />
+  <VariableToggle id="fastingToggle" v-model="isFarming" label="farming style" false-label="fasting" true-label="farming" />
+  <VariableToggle id="scuttleToggle" v-model="includeScuttle" label="include scuttle" false-label="no" true-label="yes" />
 </div>
 
-- {{ formatNumber(computedTotalAt10) }} souls at 10 minutes ({{ formatNumber(computedTotalAt10 / 10) }} / min)
-- {{ formatNumber(computedTotalAt20) }} souls at 20 minutes ({{ formatNumber(computedTotalAt20 / 20) }} / min)
+- {{ formatNumber(computedTotalAt10) }} souls at 10 minutes ({{ formatNumber(computedTotalAt10PerMinute) }} / min)
+- {{ formatNumber(computedTotalAt20) }} souls at 20 minutes ({{ formatNumber(computedTotalAt20PerMinute) }} / min)
 
 <table>
   <thead>
@@ -128,37 +138,37 @@ Detailed explanations of various variables can be found in the [FAQ](#faq) at th
     <tr>
       <td>minions</td>
       <td>{{ formatNumber(computedMinionSoulsAt10) }}</td>
-      <td>{{ formatNumber(computedMinionSoulsAt10 / 10) }}</td>
+      <td>{{ formatNumber(computedMinionSoulsAt10PerMinute) }}</td>
       <td>{{ formatNumber(computedMinionSoulsAt20) }}</td>
-      <td>{{ formatNumber(computedMinionSoulsAt20 / 20) }}</td>
+      <td>{{ formatNumber(computedMinionSoulsAt20PerMinute) }}</td>
     </tr>
     <tr>
       <td>cannon minions</td>
       <td>{{ formatNumber(computedCannonSoulsPer10) }}</td>
-      <td>{{ formatNumber(computedCannonSoulsPer10 / 10) }}</td>
+      <td>{{ formatNumber(computedCannonSoulsPer10PerMinute) }}</td>
       <td>{{ formatNumber(computedCannonSoulsAt20) }}</td>
-      <td>{{ formatNumber(computedCannonSoulsAt20 / 20) }}</td>
+      <td>{{ formatNumber(computedCannonSoulsAt20PerMinute) }}</td>
     </tr>
     <tr>
       <td>{{ isRed ? 'gromp' : 'krugs' }}</td>
       <td>{{ formatNumber(computedMonsterSoulsAt10) }}</td>
-      <td>{{ formatNumber(computedMonsterSoulsAt10 / 10) }}</td>
-      <td>{{ formatNumber(computedMonsterSoulsPost10Per10) }}</td>
-      <td>{{ formatNumber(computedMonsterSoulsPost10Per10 / 20) }}</td>
+      <td>{{ formatNumber(computedMonsterSoulsAt10PerMinute) }}</td>
+      <td>{{ formatNumber(computedMonsterSoulsAt20) }}</td>
+      <td>{{ formatNumber(computedMonsterSoulsAt20PerMinute) }}</td>
     </tr>
     <tr>
       <td>champions (2)</td>
       <td>{{ formatNumber(computedChampionSoulsAt10) }}</td>
-      <td>{{ formatNumber(computedChampionSoulsAt10 / 10) }}</td>
-      <td>{{ formatNumber(computedChampionSoulsPost10Per10) }}</td>
-      <td>{{ formatNumber(computedChampionSoulsPost10Per10 / 20) }}</td>
+      <td>{{ formatNumber(computedChampionSoulsAt10PerMinute) }}</td>
+      <td>{{ formatNumber(computedChampionSoulsAt20) }}</td>
+      <td>{{ formatNumber(computedChampionSoulsAt20PerMinute) }}</td>
     </tr>
     <tr v-if="includeScuttle">
       <td>scuttle crab</td>
       <td>{{ formatNumber(computedScuttleSoulsPer10) }}</td>
-      <td>{{ formatNumber(computedScuttleSoulsPer10 / 10) }}</td>
+      <td>{{ formatNumber(computedScuttleSoulsAtPer10PerMinute) }}</td>
       <td>{{ formatNumber(computedScuttleSoulsPer10) }}</td>
-      <td>{{ formatNumber(computedScuttleSoulsPer10 / 20) }}</td>
+      <td>{{ formatNumber(computedScuttleSoulsAt20PerMinute) }}</td>
     </tr>
   </tbody>
 </table>
@@ -175,13 +185,14 @@ Detailed explanations of various variables can be found in the [FAQ](#faq) at th
   <label class="custom-block-title uppercase">Tip</label>
   <div class="my-2 flex flex-wrap gap-2">
     hover over variables to see the values or use this toggle:
-    <variable-toggle id="detailsMode" v-model="detailsDisplayValues" label="details variables mode" false-label="variables" true-label="values" label-visually-hidden />
+    <VariableToggle id="detailsMode" v-model="detailsDisplayValues" label="details variables mode" false-label="variables" true-label="values" label-visually-hidden />
   </div>
 </div>
 
 With `at 10` at the beginning all subsequent variables are _at 10_ (total souls at 10 = total minion souls _at 10_ + cannon minion souls _at 10_ + ...).
 
-- souls per minute at 10 = total souls at 10 / 10
+- <DetailedEquasion :content="[['souls per minute at 10', formatNumber(computedTotalAt10 / 10)], '=', ['total souls at 10', formatNumber(computedTotalAt10)], '/', '10']" />
+- <DetailedEquasion :content="[['total souls at 10', formatNumber(computedTotalAt10)], '=', ['total souls at 10', formatNumber(computedTotalAt10)], '/', '10']" />
 - total souls at 10 = minion souls + cannon minion souls + {{ isRed ? 'gromp' : 'krug' }} souls + champion souls + scuttle souls
 - minion souls at 10 = total minions * minion soul drop chance
 - cannon minion souls at 10 = total cannons * cannon minion soul drop chance
