@@ -171,8 +171,6 @@ Detailed explanations of various variables can be found in the [FAQ](#faq) at th
 
 ## details
 
-If `at 10` or `at 20` is present at the beginning then it also applies to all subsequent variables (total souls at 10 = total minion souls _at 10_ + cannon minion souls _at 10_).
-
 <div class="tip custom-block">
   <label class="custom-block-title uppercase">Tip</label>
   <div class="my-2 flex flex-wrap gap-2">
@@ -181,6 +179,8 @@ If `at 10` or `at 20` is present at the beginning then it also applies to all su
   </div>
 </div>
 
+With `at 10` at the beginning all subsequent variables are _at 10_ (total souls at 10 = total minion souls _at 10_ + cannon minion souls _at 10_ + ...).
+
 - souls per minute at 10 = total souls at 10 / 10
 - total souls at 10 = minion souls + cannon minion souls + {{ isRed ? 'gromp' : 'krug' }} souls + champion souls + scuttle souls
 - minion souls at 10 = total minions * minion soul drop chance
@@ -188,9 +188,14 @@ If `at 10` or `at 20` is present at the beginning then it also applies to all su
 - {{ isRed ? 'gromp' : 'krug' }} souls at 10 = total {{ isRed ? 'gromps' : 'krugs' }} * ally minion kill soul drop chance
 - scuttle souls at 10 = total scuttles
 
+With `at 20` at the beginning, every value after the first `total X at 10` is _between 10 and 20 minutes_ (total souls at 20 = total souls at 10 + minion souls _between 10 and 20_ + cannon minion souls _between 10 and 20_ + ...)
+
 - souls per minute at 20 = total souls at 20 / 20
 - total souls at 20 = total souls at 10 + minion souls + cannon minion souls + {{ isRed ? 'gromp' : 'krug' }} souls + champion souls + scuttle souls
 - minion souls at 20 = minion souls at 10 + total minions * minion soul drop chance
+- cannon minion souls at 20 = cannon minion souls at 10 + total cannons * cannon minion soul drop chance
+- {{ isRed ? 'gromp' : 'krug' }} souls at 20 = {{ isRed ? 'gromp' : 'krug' }} souls at 10 + total {{ isRed ? 'gromps' : 'krugs' }} * ally minion kill soul drop chance
+- scuttle souls at 20 = scuttle souls at 10 + total scuttles
 
 ## FAQ
 
@@ -266,7 +271,7 @@ Between 10 and 20 minutes (wave that collides at 10:30 to wave that collides at 
 
 ### camps (krugs / gromp)
 
-First camp kill is skipped (doesn't get included in soul calculations). Camps are assumed to be killed on spawn + 16 seconds and respawn every 2:15 minutes which means:
+First camp kill is skipped (doesn't get included in soul calculations). Camps are assumed to be killed _by a jungler_ on spawn + 16 seconds and respawn every 2:15 minutes which means:
 
 At 10 minutes the above gives the total of:
 
@@ -310,7 +315,7 @@ Because the above is virtually impossible to achieve the number of souls Senna c
 
 ### scuttle crab
 
-Scuttle crab spawns at 3:30 and respawns every 2:30 minutes. Calculations assume it's killed on spawn + 15 seconds.
+Scuttle crab spawns at 3:30 and respawns every 2:30 minutes. Calculations assume it's killed _by a jungler_ on spawn + 15 seconds.
 
 At 10 minutes this gives the total of:
 

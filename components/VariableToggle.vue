@@ -26,7 +26,7 @@ const model = defineModel<boolean>({ required: true });
 		</label>
 		<button
 			:id="id"
-			class="relative self-center rounded-[0.6875rem] inline w-10 h-[1.375rem] shrink-0 border border-solid border-[var(--vp-input-border-color)] bg-[var(--vp-input-switch-bg-color)] transition-border-color transition-250 hover:border-[var(--vp-c-brand-1)]"
+			class="relative self-center rounded-[0.6875rem] inline w-10 h-[1.375rem] shrink-0 border border-solid border-[var(--vp-input-border-color)] bg-[var(--vp-input-switch-bg-color)] transition-border-color transition-250 hover:border-[var(--vp-c-brand-1)] focus-visible:border-[var(--vp-c-brand-1)]"
 			type="button"
 			role="switch"
 			:aria-checked="model"
