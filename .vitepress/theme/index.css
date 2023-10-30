@@ -33,3 +33,13 @@ body {
 	--vp-button-brand-bg: var(--vp-c-brand-3);
 	--vp-button-brand-hover-bg: var(--vp-c-brand-2);
 }
+
+.visually-hidden {
+	position: absolute;
+	overflow: hidden;
+	clip: rect(0 0 0 0); 
+	clip-path: inset(50%);
+	width: 1px;
+	height: 1px;
+	white-space: nowrap;
+}

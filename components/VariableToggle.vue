@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineModel, defineProps } from 'vue';
+import { defineModel } from 'vue';
 
 defineProps<{
 	id: string;
@@ -8,14 +8,15 @@ defineProps<{
 	trueLabel: string;
 	falseClass?: string;
 	trueClass?: string;
+	labelVisuallyHidden?: boolean;
 }>();
 
 const model = defineModel<boolean>({ required: true });
 </script>
 
 <template>
-	<div class="grid grid-cols-[min-content_min-content_auto] gap-x-2 text-[var(--vp-c-text-2)] w-fit">
-		<label class="col-span-full" :for="id">{{ label }}:</label>
+	<div class="relative grid grid-cols-[min-content_min-content_auto] gap-x-2 text-[var(--vp-c-text-2)] w-fit">
+		<label class="col-span-full" :class="labelVisuallyHidden ? 'visually-hidden' : ''" :for="id">{{ label }}:</label>
 		<label
 			class="cursor-pointer transition-250 transition-color"
 			:class="model ? 'text-[var(--vp-c-text-2)]' : 'text-[var(--vp-c-text-1)]'"

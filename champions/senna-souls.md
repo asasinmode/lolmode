@@ -93,6 +93,8 @@ const computedTotalPost10Per10 = computed(() => {
 });
 
 const computedTotalAt20 = computed(() => computedTotalAt10.value + computedTotalPost10Per10.value);
+
+const detailsDisplayValues = ref(false);
 </script>
 
 # Senna souls
@@ -171,10 +173,13 @@ Detailed explanations of various variables can be found in the [FAQ](#faq) at th
 
 If `at 10` or `at 20` is present at the beginning then it also applies to all subsequent variables (total souls at 10 = total minion souls _at 10_ + cannon minion souls _at 10_).
 
-::: tip
-hover over variables to see the values or switch this toggle
-<variable-toggle id="sideToggle" v-model="isRed" label="side: (krugs / gromp)" false-label="blue" true-label="red" />
-:::
+<div class="tip custom-block">
+  <label class="custom-block-title uppercase">Tip</label>
+  <div class="my-2 flex flex-wrap gap-2">
+    hover over variables to see the values or use this toggle:
+    <variable-toggle id="detailsMode" v-model="detailsDisplayValues" label="details variables mode" false-label="variables" true-label="values" label-visually-hidden />
+  </div>
+</div>
 
 - souls per minute at 10 = total souls at 10 / 10
 - total souls at 10 = minion souls + cannon minion souls + {{ isRed ? 'gromp' : 'krug' }} souls + champion souls + scuttle souls
