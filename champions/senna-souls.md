@@ -55,8 +55,8 @@ const computedMinionSoulDropRate = computed(() => isFarming.value ? parsedMinion
 
 const computedMinionSoulsAt10 = computed(() => minionsAt10 * computedMinionSoulDropRate.value);
 const computedMinionSoulsAt10PerMinute = computed(() => computedMinionSoulsAt10.value / 10);
-const computedMinionSoulsAfter10Per10 = computed(() => minionsPost10Per10 * computedMinionSoulDropRate.value);
-const computedMinionSoulsAt20 = computed(() => computedMinionSoulsAt10.value + computedMinionSoulsAfter10Per10.value);
+const computedMinionSoulsPost10Per10 = computed(() => minionsPost10Per10 * computedMinionSoulDropRate.value);
+const computedMinionSoulsAt20 = computed(() => computedMinionSoulsAt10.value + computedMinionSoulsPost10Per10.value);
 const computedMinionSoulsAt20PerMinute = computed(() => computedMinionSoulsAt20.value / 20);
 
 const computedCannonMinionSoulDropRate = computed(() => isFarming.value ? parsedMinionSoulDropRate.value : 1);
@@ -81,10 +81,11 @@ const computedMonsterSoulsAt20PerMinute = computed(() => computedMonsterSoulsAt2
 
 const scuttlesPer10 = 3;
 const computedScuttlesPer10 = computed(() => includeScuttle.value ? scuttlesPer10 : 0);
+const computedScuttlesAt20 = computed(() => computedScuttlesPer10.value * 2);
 
 const computedScuttleSoulsPer10 = computed(() => computedScuttlesPer10.value);
-const computedScuttleSoulsAtPer10PerMinute = computed(() => computedScuttleSoulsPer10.value / 10);
-const computedScuttleSoulsAt20 = computed(() => 2 * computedScuttleSoulsPer10.value);
+const computedScuttleSoulsAt10PerMinute = computed(() => computedScuttleSoulsPer10.value / 10);
+const computedScuttleSoulsAt20 = computed(() => computedScuttlesAt20.value);
 const computedScuttleSoulsAt20PerMinute = computed(() => computedScuttleSoulsAt20.value / 20);
 
 const botlaneChampions = 2;
@@ -99,12 +100,12 @@ const computedChampionSoulsAt20PerMinute = computed(() => computedChampionSoulsA
 const computedTotalAt10 = computed(() => computedMinionSoulsAt10.value + computedCannonSoulsPer10.value + computedMonsterSoulsAt10.value + computedScuttleSoulsPer10.value + computedChampionSoulsAt10.value);
 const computedTotalAt10PerMinute = computed(() => computedTotalAt10.value / 10);
 
-const computedTotalPost10Per10 = computed(() => computedMinionSoulsAfter10Per10.value + computedCannonSoulsPer10.value + computedMonstersPost10Per10.value + computedScuttleSoulsPer10.value + computedChampionSoulsPost10Per10.value);
+const computedTotalPost10Per10 = computed(() => computedMinionSoulsPost10Per10.value + computedCannonSoulsPer10.value + computedMonsterSoulsPost10Per10.value + computedScuttleSoulsPer10.value + computedChampionSoulsPost10Per10.value);
 
 const computedTotalAt20 = computed(() => computedTotalAt10.value + computedTotalPost10Per10.value);
 const computedTotalAt20PerMinute = computed(() => computedTotalAt20.value / 20);
 
-const detailsDisplayValues = ref(false);
+const detailsDisplayValues = ref(true);
 
 provide('detailedEquasionDisplayValues', detailsDisplayValues);
 </script>
@@ -168,7 +169,7 @@ Detailed explanations of various variables can be found in the [FAQ](#faq) at th
     <tr v-if="includeScuttle">
       <td>scuttle crab</td>
       <td>{{ formatNumber(computedScuttleSoulsPer10) }}</td>
-      <td>{{ formatNumber(computedScuttleSoulsAtPer10PerMinute) }}</td>
+      <td>{{ formatNumber(computedScuttleSoulsAt10PerMinute) }}</td>
       <td>{{ formatNumber(computedScuttleSoulsPer10) }}</td>
       <td>{{ formatNumber(computedScuttleSoulsAt20PerMinute) }}</td>
     </tr>
@@ -247,6 +248,17 @@ With `at 10` at the beginning all subsequent variables are _at 10_ (total souls 
   </li>
   <li>
     <DetailedEquasion :content="[
+	['champion souls at 10', computedChampionSoulsAt10],
+	'=',
+	['champions', 2],
+	'*',
+	['souls per champion per minute', parsedSoulsPerChampion],
+	'*',
+	['minutes', pre10ChampionSoulMinutes]
+    ]" />
+  </li>
+  <li>
+    <DetailedEquasion :content="[
       ['scuttle souls at 10', computedScuttleSoulsPer10],
       '=',
       ['total scuttles', computedScuttlesPer10]
@@ -254,14 +266,122 @@ With `at 10` at the beginning all subsequent variables are _at 10_ (total souls 
   </li>
 </ul>
 
-With `at 20` at the beginning, every value after the first `total X at 10` is _between 10 and 20 minutes_ (total souls at 20 = total souls at 10 + minion souls _between 10 and 20_ + cannon minion souls _between 10 and 20_ + ...)
+With `at 20` at the beginning, every value after the first `X at 10` is _between 10 and 20 minutes_ (total souls at 20 = total souls at 10 + minion souls _between 10 and 20_ + cannon minion souls _between 10 and 20_ + ...).
 
-- souls per minute at 20 = total souls at 20 / 20
-- total souls at 20 = total souls at 10 + minion souls + cannon minion souls + {{ isRed ? 'gromp' : 'krug' }} souls + champion souls + scuttle souls
-- minion souls at 20 = minion souls at 10 + total minions * minion soul drop chance
-- cannon minion souls at 20 = cannon minion souls at 10 + total cannons * cannon minion soul drop chance
-- {{ isRed ? 'gromp' : 'krug' }} souls at 20 = {{ isRed ? 'gromp' : 'krug' }} souls at 10 + total {{ isRed ? 'gromps' : 'krugs' }} * ally minion kill soul drop chance
-- scuttle souls at 20 = scuttle souls at 10 + total scuttles
+<ul>
+  <li>
+    <DetailedEquasion :content="[
+	['souls per minute at 20', computedTotalAt20PerMinute],
+	'=',
+	['total souls at 20', computedTotalAt20],
+	'/',
+	'20'
+    ]" />
+  </li>
+  <li>
+    <DetailedEquasion :content="[
+	['total souls at 20', computedTotalAt20],
+	'=',
+	['total souls at 10', computedTotalAt10],
+	'+',
+	['minion souls', computedMinionSoulsPost10Per10],
+	'+',
+	['cannon minion souls', computedCannonSoulsPer10],
+	'+',
+	[`${isRed ? 'gromp' : 'krug'} souls`, computedMonsterSoulsPost10Per10],
+	'+',
+	['champion souls', computedChampionSoulsPost10Per10],
+	'+',
+	['scuttle souls', computedScuttleSoulsPer10]
+    ]" />
+  </li>
+  <li>
+    <DetailedEquasion :content="[
+	['minion souls between 10 and 20', computedMinionSoulsPost10Per10],
+	'=',
+	['total minions', minionsPost10Per10],
+	'*',
+	['minion soul drop chance', computedMinionSoulDropRate]
+    ]" />
+  </li>
+  <li>
+    <DetailedEquasion :content="[
+	['cannon minion souls between 10 and 20', computedCannonSoulsPer10],
+	'=',
+	['total cannons', cannonsPer10],
+	'*',
+	['cannon minion soul drop chance', computedCannonMinionSoulDropRate]
+    ]" />
+  </li>
+  <li>
+    <DetailedEquasion :content="[
+      [`${isRed ? 'gromp' : 'krug'} souls between 10 and 20`, computedMonsterSoulsPost10Per10],
+      '=',
+      [`total ${isRed ? 'gromps' : 'krugs'}`, computedMonstersPost10Per10],
+      '*',
+      ['ally minion kill soul drop chance', allyParsedMinionSoulDropRate]
+    ]" />
+  </li>
+  <li>
+    <DetailedEquasion :content="[
+	['champion souls between 10 and 20', computedChampionSoulsPost10Per10],
+	'=',
+	['champions', 2],
+	'*',
+	['souls per champion per minute', parsedSoulsPerChampion],
+	'*',
+	['minutes', 10]
+    ]" />
+  </li>
+  <li>
+    <DetailedEquasion :content="[
+      ['scuttle souls between 10 and 20', computedScuttleSoulsAt20],
+      '=',
+      ['total scuttles', computedScuttlesPer10]
+    ]" />
+  </li>
+</ul>
+
+Additionally here are some values from the [results](#results) table for specific soul sources at 20 minutes.
+
+<ul>
+  <li>
+    <DetailedEquasion :content="[
+	['minion souls at 20', computedMinionSoulsAt20],
+	'=',
+	['minion souls at 10', computedMinionSoulsAt10],
+	'+',
+	['minion souls between 10 and 20', computedMinionSoulsPost10Per10]
+    ]" />
+  </li>
+  <li>
+    <DetailedEquasion :content="[
+	['cannon minion souls at 20', computedCannonSoulsAt20],
+	'=',
+	['cannon minion souls at 10', computedCannonSoulsPer10],
+	'+',
+	['cannon minion souls between 10 and 20', computedCannonSoulsPer10],
+    ]" />
+  </li>
+  <li>
+    <DetailedEquasion :content="[
+      [`${isRed ? 'gromp' : 'krug'} souls at 20`, computedMonsterSoulsAt20],
+      '=',
+      [`${isRed ? 'gromps' : 'krugs'} souls at 10`, computedMonsterSoulsAt10],
+      '+',
+      [`${isRed ? 'gromps' : 'krugs'} souls between 10 and 20`, computedMonsterSoulsPost10Per10],
+    ]" />
+  </li>
+  <li>
+    <DetailedEquasion :content="[
+      ['scuttle souls at 20', computedScuttleSoulsAt20],
+      '=',
+      ['scuttle souls at 10', computedScuttleSoulsPer10],
+      '+',
+      ['scuttle souls between 10 and 20', computedScuttleSoulsPer10]
+    ]" />
+  </li>
+</ul>
 
 ## FAQ
 
