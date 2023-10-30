@@ -2,10 +2,14 @@
 import { inject } from 'vue';
 
 defineProps<{
-	content: (string | [string, string])[];
+	content: (string | [string, number])[];
 }>();
 
 const displayValues = inject('detailedEquasionDisplayValues', false);
+
+function formatNumber(value: number) {
+	return Number(value.toFixed(2));
+}
 </script>
 
 <template>
@@ -15,9 +19,9 @@ const displayValues = inject('detailedEquasionDisplayValues', false);
 				{{ value }}
 			</span>
 			<span v-else class="group hover:underline relative">
-				{{ value[displayValues ? 1 : 0] }}
+				{{ displayValues ? formatNumber(value[1]) : value[0] }}
 				<span class="min-w-[max(100%,_6rem)] -translate-x-1/2 left-1/2 absolute -translate-y-full rounded-md p-1 px-2 left-0 text-center bg-black/90 text-white invisible group-hover:visible">
-					{{ value[displayValues ? 0 : 1] }}
+					{{ displayValues ? value[0] : formatNumber(value[1]) }}
 				</span>
 			</span>
 		</template>
