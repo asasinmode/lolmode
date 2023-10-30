@@ -21,5 +21,6 @@ const displayValues = inject('detailedEquasionDisplayValues', false);
 				</span>
 			</span>
 		</template>
+		<span v-if="displayValues" class="text-[var(--vp-c-text-2)]">{{ content[0][0] }}</span>
 	</div>
 </template>
