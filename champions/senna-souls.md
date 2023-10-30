@@ -82,7 +82,7 @@ const computedMonsterSoulsAt20PerMinute = computed(() => computedMonsterSoulsAt2
 const scuttlesPer10 = 3;
 const computedScuttlesPer10 = computed(() => includeScuttle.value ? scuttlesPer10 : 0);
 
-const computedScuttleSoulsPer10 = computed(() => computedScuttlesPer10.value * allyParsedMinionSoulDropRate.value);
+const computedScuttleSoulsPer10 = computed(() => computedScuttlesPer10.value);
 const computedScuttleSoulsAtPer10PerMinute = computed(() => computedScuttleSoulsPer10.value / 10);
 const computedScuttleSoulsAt20 = computed(() => 2 * computedScuttleSoulsPer10.value);
 const computedScuttleSoulsAt20PerMinute = computed(() => computedScuttleSoulsAt20.value / 20);
