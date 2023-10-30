@@ -3,7 +3,7 @@ import { defineModel, defineProps } from 'vue';
 
 defineProps<{
 	id: string;
-	title: string;
+	label: string;
 	falseLabel: string;
 	trueLabel: string;
 	falseClass?: string;
@@ -15,7 +15,7 @@ const model = defineModel<boolean>({ required: true });
 
 <template>
 	<div class="grid grid-cols-[min-content_min-content_auto] gap-x-2 text-[var(--vp-c-text-2)] w-fit">
-		<label class="col-span-full" :for="id">{{ title }}:</label>
+		<label class="col-span-full" :for="id">{{ label }}:</label>
 		<label
 			class="cursor-pointer transition-250 transition-color"
 			:class="model ? 'text-[var(--vp-c-text-2)]' : 'text-[var(--vp-c-text-1)]'"

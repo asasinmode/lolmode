@@ -2,14 +2,14 @@
 head:
   - - meta
     - name: description
-      content: League of Legends Senna souls at 10 and 20 minutes calculator
+      content: League of Legends Senna souls per minute calculator
 ---
 
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 
 import FloatInput from '../components/FloatInput.vue';
-import SideToggle from '../components/SideToggle.vue';
+import VariableToggle from '../components/VariableToggle.vue';
 
 const isRed = ref(false);
 const includeScuttle = ref(false);
@@ -104,9 +104,9 @@ Detailed explanations of various variables can be found in the [FAQ](#faq) at th
 ## results
 
 <div class="w-full flex gap-6 flex-col sm:flex-row sm:flex-wrap justify-between border border-[var(--vp-input-border-color)] rounded-lg p-4 mt-4 mb-8">
-  <side-toggle id="sideToggle" v-model="isRed" title="side: (krugs / gromp)" false-label="blue" true-label="red" />
-  <side-toggle id="fastingToggle" v-model="isFarming" title="farming style" false-label="fasting" true-label="farming" />
-  <side-toggle id="scuttleToggle" v-model="includeScuttle" title="include scuttle" false-label="no" true-label="yes" />
+  <variable-toggle id="sideToggle" v-model="isRed" label="side: (krugs / gromp)" false-label="blue" true-label="red" />
+  <variable-toggle id="fastingToggle" v-model="isFarming" label="farming style" false-label="fasting" true-label="farming" />
+  <variable-toggle id="scuttleToggle" v-model="includeScuttle" label="include scuttle" false-label="no" true-label="yes" />
 </div>
 
 - {{ formatNumber(computedTotalAt10) }} souls at 10 minutes ({{ formatNumber(computedTotalAt10 / 10) }} / min)
@@ -169,7 +169,23 @@ Detailed explanations of various variables can be found in the [FAQ](#faq) at th
 
 ## details
 
-explicitly explained results/values
+If `at 10` or `at 20` is present at the beginning then it also applies to all subsequent variables (total souls at 10 = total minion souls _at 10_ + cannon minion souls _at 10_).
+
+::: tip
+hover over variables to see the values or switch this toggle
+<variable-toggle id="sideToggle" v-model="isRed" label="side: (krugs / gromp)" false-label="blue" true-label="red" />
+:::
+
+- souls per minute at 10 = total souls at 10 / 10
+- total souls at 10 = minion souls + cannon minion souls + {{ isRed ? 'gromp' : 'krug' }} souls + champion souls + scuttle souls
+- minion souls at 10 = total minions * minion soul drop chance
+- cannon minion souls at 10 = total cannons * cannon minion soul drop chance
+- {{ isRed ? 'gromp' : 'krug' }} souls at 10 = total {{ isRed ? 'gromps' : 'krugs' }} * ally minion kill soul drop chance
+- scuttle souls at 10 = total scuttles
+
+- souls per minute at 20 = total souls at 20 / 20
+- total souls at 20 = total souls at 10 + minion souls + cannon minion souls + {{ isRed ? 'gromp' : 'krug' }} souls + champion souls + scuttle souls
+- minion souls at 20 = minion souls at 10 + total minions * minion soul drop chance
 
 ## FAQ
 
