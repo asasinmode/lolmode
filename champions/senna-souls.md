@@ -59,7 +59,9 @@ const computedMinionSoulsAfter10Per10 = computed(() => minionsPost10Per10 * comp
 const computedMinionSoulsAt20 = computed(() => computedMinionSoulsAt10.value + computedMinionSoulsAfter10Per10.value);
 const computedMinionSoulsAt20PerMinute = computed(() => computedMinionSoulsAt20.value / 20);
 
-const computedCannonSoulsPer10 = computed(() => isFarming.value ? cannonsPer10 * computedMinionSoulDropRate.value : cannonsPer10);
+const computedCannonMinionSoulDropRate = computed(() => isFarming.value ? parsedMinionSoulDropRate.value : 1);
+
+const computedCannonSoulsPer10 = computed(() => cannonsPer10 * computedCannonMinionSoulDropRate.value);
 const computedCannonSoulsPer10PerMinute = computed(() => computedCannonSoulsPer10.value / 10);
 const computedCannonSoulsAt20 = computed(() => computedCannonSoulsPer10.value * 2);
 const computedCannonSoulsAt20PerMinute = computed(() => computedCannonSoulsAt20.value / 20);
@@ -191,13 +193,66 @@ Detailed explanations of various variables can be found in the [FAQ](#faq) at th
 
 With `at 10` at the beginning all subsequent variables are _at 10_ (total souls at 10 = total minion souls _at 10_ + cannon minion souls _at 10_ + ...).
 
-- <DetailedEquasion :content="[['souls per minute at 10', formatNumber(computedTotalAt10 / 10)], '=', ['total souls at 10', formatNumber(computedTotalAt10)], '/', '10']" />
-- <DetailedEquasion :content="[['total souls at 10', formatNumber(computedTotalAt10)], '=', ['total souls at 10', formatNumber(computedTotalAt10)], '/', '10']" />
-- total souls at 10 = minion souls + cannon minion souls + {{ isRed ? 'gromp' : 'krug' }} souls + champion souls + scuttle souls
-- minion souls at 10 = total minions * minion soul drop chance
-- cannon minion souls at 10 = total cannons * cannon minion soul drop chance
-- {{ isRed ? 'gromp' : 'krug' }} souls at 10 = total {{ isRed ? 'gromps' : 'krugs' }} * ally minion kill soul drop chance
-- scuttle souls at 10 = total scuttles
+<ul>
+  <li>
+    <DetailedEquasion :content="[
+	['souls per minute at 10', computedTotalAt10PerMinute],
+	'=',
+	['total souls at 10', computedTotalAt10],
+	'/',
+	'10'
+    ]" />
+  </li>
+  <li>
+    <DetailedEquasion :content="[
+	['total souls at 10', computedTotalAt10],
+	'=',
+	['minion souls', computedMinionSoulsAt10],
+	'+',
+	['cannon minion souls', computedCannonSoulsPer10],
+	'+',
+	[`${isRed ? 'gromp' : 'krug'} souls`, computedMonsterSoulsAt10],
+	'+',
+	['champion souls', computedChampionSoulsAt10],
+	'+',
+	['scuttle souls', computedScuttleSoulsPer10]
+    ]" />
+  </li>
+  <li>
+    <DetailedEquasion :content="[
+	['minion souls at 10', computedMinionSoulsAt10],
+	'=',
+	['total minions', minionsAt10],
+	'*',
+	['minion soul drop chance', computedMinionSoulDropRate]
+    ]" />
+  </li>
+  <li>
+    <DetailedEquasion :content="[
+	['cannon minion souls at 10', computedCannonSoulsPer10],
+	'=',
+	['total cannons', cannonsPer10],
+	'*',
+	['cannon minion soul drop chance', computedCannonMinionSoulDropRate]
+    ]" />
+  </li>
+  <li>
+    <DetailedEquasion :content="[
+      [`${isRed ? 'gromp' : 'krug'} souls at 10`, computedMonsterSoulsAt10],
+      '=',
+      [`total ${isRed ? 'gromps' : 'krugs'}`, computedMonstersAt10],
+      '*',
+      ['ally minion kill soul drop chance', allyParsedMinionSoulDropRate]
+    ]" />
+  </li>
+  <li>
+    <DetailedEquasion :content="[
+      ['scuttle souls at 10', computedScuttleSoulsPer10],
+      '=',
+      ['total scuttles', computedScuttlesPer10]
+    ]" />
+  </li>
+</ul>
 
 With `at 20` at the beginning, every value after the first `total X at 10` is _between 10 and 20 minutes_ (total souls at 20 = total souls at 10 + minion souls _between 10 and 20_ + cannon minion souls _between 10 and 20_ + ...)
 
