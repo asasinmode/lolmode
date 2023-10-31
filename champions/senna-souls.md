@@ -112,7 +112,7 @@ provide('detailedEquasionDisplayValues', detailsDisplayValues);
 
 # Senna souls
 
-Maximum theoretical senna souls per minute calculator. Human error not taken into account. Subtract whatever you think it is from final results.
+Average Senna souls per minute calculator. Human error not taken into account. Subtract whatever you think it is from final results.
 
 Detailed explanations of various variables can be found in the [FAQ](#faq) at the bottom.
 
