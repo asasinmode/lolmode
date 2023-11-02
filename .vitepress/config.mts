@@ -8,9 +8,9 @@ export default defineConfig({
 	lang: 'en-US',
 	description: 'various league of legends related stuff',
 	head: [
-		['link', { rel: 'icon', href: '/favicon.ico' }],
-		['link', { rel: 'icon', href: '/favicon_dark.ico', media: '(prefers-color-scheme: dark)' }],
-		['link', { rel: 'mask-icon', href: '/cupcake.svg', color: '#000000' }],
+		['link', { rel: 'icon', href: '/lolmode/favicon.ico' }],
+		['link', { rel: 'icon', href: '/lolmode/favicon_dark.ico', media: '(prefers-color-scheme: dark)' }],
+		['link', { rel: 'mask-icon', href: '/lolmode/cupcake.svg', color: '#000000' }],
 	],
 	base: '/lolmode/',
 
