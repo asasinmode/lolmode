@@ -14,7 +14,7 @@ const emit = defineEmits<{
 const modelValue = defineModel<string | number>({ required: true });
 
 function parseInput(event: FocusEvent) {
-	const value = parseFloat(`${(event.target as HTMLInputElement).value}`.replaceAll(/[^\d-.]/g, ''));
+	const value = parseFloat(`${(event.target as HTMLInputElement).value}`.replaceAll(/[^\d-.]/g, '')) || 0;
 
 	if (Number.isNaN(value) || value < 0) {
 		modelValue.value = '0';
