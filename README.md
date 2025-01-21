@@ -2,7 +2,7 @@
 
 [Vitepress](https://vitepress.dev/) website with various league of legends related stuff.
 
-Deployed at [asasinmode.github.io/lol](https://asasinmode.github.io/lol/)
+Deployed at [asasinmode.github.io/lol](https://asasinmode.github.io/lolmode/)
 
 # develop
 
