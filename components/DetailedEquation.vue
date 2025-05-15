@@ -13,6 +13,9 @@ function formatNumber(value: number) {
 
 function id(index: number) {
 	const value = props.content[index][0].replaceAll(' ', '');
+	if (index !== 0 && value === 'totalsoulsat10' && props.content[0][0].replaceAll(' ', '') === 'totalsoulsat20') {
+		return undefined;
+	}
 	return value.endsWith('at10') || value.endsWith('at20')
 		? value.slice(0, -4)
 		: value.endsWith('between10and20') ? value.slice(0, -14) : value;
