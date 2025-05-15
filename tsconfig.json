@@ -1,25 +1,31 @@
 {
-  "compilerOptions": {
-    "target": "esnext",
-    "rootDir": ".",
-    "module": "esnext",
-    "lib": [
-      "esnext"
-    ],
-    "moduleResolution": "Bundler",
-    "esModuleInterop": true,
-    "allowJs": true,
-    "strict": true,
-    "strictNullChecks": true,
-    "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "skipDefaultLibCheck": true
-  },
-  "exclude": [
-    "dist",
-    "node_modules"
-  ],
-  "include": [
-    ".vitepress/**/*"
-  ]
+	"compilerOptions": {
+		"target": "esnext",
+		"lib": [
+			"esnext",
+		],
+		"rootDir": ".",
+		"module": "esnext",
+		"moduleResolution": "Bundler",
+		"resolveJsonModule": true,
+		"allowJs": true,
+		"strict": true,
+		"strictNullChecks": true,
+		"esModuleInterop": true,
+		"skipDefaultLibCheck": true,
+		"skipLibCheck": true
+	},
+	"include": [
+		".vitepress/**/*",
+		"champions/*.md"
+	],
+	"exclude": [
+		"dist",
+		"node_modules"
+	],
+	"vueCompilerOptions": {
+		"vitePressExtensions": [
+			".md"
+		],
+	},
 }

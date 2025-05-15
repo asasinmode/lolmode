@@ -29,8 +29,8 @@ const allyParsedMinionSoulDropRate = ref(0);
 const allyRawMinionSoulDropRate = ref('');
 
 // 8.(3)%
-setMinionSoulDropRate(25 / 3 / 100);
-rawMinionSoulDropRate.value = '8.33';
+setMinionSoulDropRate(14 / 100);
+rawMinionSoulDropRate.value = '14';
 // 28%
 setAllyMinionSoulDropRate(28 / 100);
 allyRawMinionSoulDropRate.value = '28';
@@ -485,7 +485,7 @@ Between 10 and 20 minutes the totals are:
 
 ### champions
 
-Senna can get souls from champions she hits twice in the span of 4 seconds. Cooldown per champions is 6/5/4 seconds on levels 1/6/11. This means the THEORETICAL maximum number of souls Senna can get from a champion is:
+Senna can get souls from champions she hits twice in the span of 4 seconds. Cooldown per champions is 6/5/4 seconds on levels 1/6/11. This means the **THEORETICAL** maximum number of souls Senna can get from a champion is:
 
 - 6 per minute on level 1
 - 6.(6) per minute on level 6
@@ -525,13 +525,12 @@ Between 10 and 20 minutes the total is:
 
 ### soul drop rates
 
-According to [Senna wiki](https://leagueoflegends.fandom.com/wiki/Senna/LoL).
+According to [Senna wiki](https://wiki.leagueoflegends.com/en-us/Senna).
 
 | source / who kills      | senna                        | ally                             |
-|-------------------------|------------------------------|----------------------------------|
+| ----------------------- | ---------------------------- | -------------------------------- |
 | minions / krugs / gromp | {{ rawMinionSoulDropRate }}% | {{ allyRawMinionSoulDropRate }}% |
 | scuttle crab            | 100%                         | 100%                             |
-
 
 ::: tip
 Minion soul drop rates can be adjusted in [values](#values).
@@ -539,4 +538,4 @@ Minion soul drop rates can be adjusted in [values](#values).
 
 ## sources
 
-- [League of Legends fandom wiki](https://leagueoflegends.fandom.com/wiki/League_of_Legends_Wiki)
+- [League of Legends wiki](https://wiki.leagueoflegends.com/en-us/)

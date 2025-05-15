@@ -5,12 +5,12 @@ title: home
 hero:
   name: lolmode
   text: various league stuff
-  tagline: "current patch: 13.21"
+  tagline: "current patch: 25.10"
   image:
     light: /cupcake.svg
     dark: /cupcake_dark.svg
     alt: asasinmode profile icon
-    
+
   actions:
     - theme: brand
       text: senna souls

@@ -1,5 +1,5 @@
 body {
-	@apply font-sans
+	@apply font-sans;
 }
 
 /**
@@ -15,19 +15,19 @@ body {
 		var(--vp-c-hero-gradient-1) 10%,
 		var(--vp-c-hero-gradient-2)
 	);
-	--vp-c-brand-1: #005A82;
-	--vp-c-brand-2: #0A323C;
+	--vp-c-brand-1: #005a82;
+	--vp-c-brand-2: #0a323c;
 	--vp-c-brand-3: #091428;
 	--vp-c-hero-gradient-1: var(--vp-c-brand-1);
-	--vp-c-hero-gradient-2: #0397AB;
+	--vp-c-hero-gradient-2: #0397ab;
 	--vp-button-brand-bg: var(--vp-c-brand-1);
-	--vp-button-brand-hover-bg: #0397AB;
+	--vp-button-brand-hover-bg: #0397ab;
 }
 
 :root.dark {
-	--vp-c-brand-1: #0AC8B9;
-	--vp-c-brand-2: #0397AB;
-	--vp-c-brand-3: #005A82;
+	--vp-c-brand-1: #0ac8b9;
+	--vp-c-brand-2: #0397ab;
+	--vp-c-brand-3: #005a82;
 	--vp-c-hero-gradient-1: var(--vp-c-brand-3);
 	--vp-c-hero-gradient-2: var(--vp-c-brand-1);
 	--vp-button-brand-bg: var(--vp-c-brand-3);
@@ -37,7 +37,7 @@ body {
 .visually-hidden {
 	position: absolute;
 	overflow: hidden;
-	clip: rect(0 0 0 0); 
+	clip: rect(0 0 0 0);
 	clip-path: inset(50%);
 	width: 1px;
 	height: 1px;

@@ -1,28 +1,27 @@
 {
-  "name": "lolmode",
-  "type": "module",
-  "version": "1.0.0",
-  "private": "true",
-  "packageManager": "pnpm@10.7.0",
-  "author": "asasinmode",
-  "license": "MIT",
-  "scripts": {
-    "lint": "eslint . --fix",
-    "dev": "vitepress dev",
-    "build": "vitepress build",
-    "preview": "vitepress preview"
-  },
-  "dependencies": {
-    "@unocss/reset": "^66.1.2",
-    "typescript": "^5.8.3",
-    "unocss": "^66.1.2",
-    "vitepress": "1.6.3",
-    "vue": "^3.5.14"
-  },
-  "devDependencies": {
-    "@antfu/eslint-config": "^4.13.0",
-    "@types/node": "^22.15.18",
-    "eslint": "^9.26.0",
-    "eslint-plugin-format": "^1.0.1"
-  }
+	"name": "lolmode",
+	"type": "module",
+	"private": "true",
+	"packageManager": "pnpm@10.7.0",
+	"author": "asasinmode",
+	"license": "MIT",
+	"scripts": {
+		"lint": "eslint . --fix",
+		"dev": "vitepress dev",
+		"build": "vitepress build",
+		"preview": "vitepress preview"
+	},
+	"dependencies": {
+		"@unocss/reset": "^66.1.2",
+		"typescript": "^5.8.3",
+		"unocss": "^66.1.2",
+		"vitepress": "1.6.3",
+		"vue": "^3.5.14"
+	},
+	"devDependencies": {
+		"@antfu/eslint-config": "^4.13.0",
+		"@types/node": "^22.15.18",
+		"eslint": "^9.26.0",
+		"eslint-plugin-format": "^1.0.1"
+	}
 }
