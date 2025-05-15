@@ -23,7 +23,6 @@ export default defineConfig({
 
 		socialLinks: [
 			{ icon: 'github', link: 'https://github.com/asasinmode/lolmode' },
-			{ icon: 'x', link: 'https://twitter.com/asasinmode' },
 		],
 
 		sidebar: [
