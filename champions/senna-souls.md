@@ -10,7 +10,7 @@ import { computed, provide, ref } from 'vue';
 
 import FloatInput from '../components/FloatInput.vue';
 import VariableToggle from '../components/VariableToggle.vue';
-import DetailedEquasion from '../components/DetailedEquasion.vue';
+import DetailedEquation from '../components/DetailedEquation.vue';
 
 const isRed = ref(false);
 const includeScuttle = ref(false);
@@ -107,7 +107,7 @@ const computedTotalAt20PerMinute = computed(() => computedTotalAt20.value / 20);
 
 const detailsDisplayValues = ref(true);
 
-provide('detailedEquasionDisplayValues', detailsDisplayValues);
+provide('detailedEquationDisplayValues', detailsDisplayValues);
 </script>
 
 # Senna souls
@@ -194,9 +194,9 @@ Detailed explanations of various variables can be found in the [FAQ](#faq) at th
 
 With `at 10` at the beginning all subsequent variables are _at 10_ (total souls at 10 = total minion souls _at 10_ + cannon minion souls _at 10_ + ...).
 
-<ul>
+<ul class="equationList">
   <li>
-    <DetailedEquasion :content="[
+    <DetailedEquation :content="[
 	['souls per minute at 10', computedTotalAt10PerMinute],
 	'=',
 	['total souls at 10', computedTotalAt10],
@@ -205,7 +205,7 @@ With `at 10` at the beginning all subsequent variables are _at 10_ (total souls 
     ]" />
   </li>
   <li>
-    <DetailedEquasion :content="[
+    <DetailedEquation :content="[
 	['total souls at 10', computedTotalAt10],
 	'=',
 	['minion souls', computedMinionSoulsAt10],
@@ -220,7 +220,7 @@ With `at 10` at the beginning all subsequent variables are _at 10_ (total souls 
     ]" />
   </li>
   <li>
-    <DetailedEquasion :content="[
+    <DetailedEquation :content="[
 	['minion souls at 10', computedMinionSoulsAt10],
 	'=',
 	['total minions', minionsAt10],
@@ -229,7 +229,7 @@ With `at 10` at the beginning all subsequent variables are _at 10_ (total souls 
     ]" />
   </li>
   <li>
-    <DetailedEquasion :content="[
+    <DetailedEquation :content="[
 	['cannon minion souls at 10', computedCannonSoulsPer10],
 	'=',
 	['total cannons', cannonsPer10],
@@ -238,7 +238,7 @@ With `at 10` at the beginning all subsequent variables are _at 10_ (total souls 
     ]" />
   </li>
   <li>
-    <DetailedEquasion :content="[
+    <DetailedEquation :content="[
       [`${isRed ? 'gromp' : 'krug'} souls at 10`, computedMonsterSoulsAt10],
       '=',
       [`total ${isRed ? 'gromps' : 'krugs'}`, computedMonstersAt10],
@@ -247,7 +247,7 @@ With `at 10` at the beginning all subsequent variables are _at 10_ (total souls 
     ]" />
   </li>
   <li>
-    <DetailedEquasion :content="[
+    <DetailedEquation :content="[
 	['champion souls at 10', computedChampionSoulsAt10],
 	'=',
 	['champions', 2],
@@ -258,7 +258,7 @@ With `at 10` at the beginning all subsequent variables are _at 10_ (total souls 
     ]" />
   </li>
   <li>
-    <DetailedEquasion :content="[
+    <DetailedEquation :content="[
       ['scuttle souls at 10', computedScuttleSoulsPer10],
       '=',
       ['total scuttles', computedScuttlesPer10]
@@ -268,9 +268,9 @@ With `at 10` at the beginning all subsequent variables are _at 10_ (total souls 
 
 With `at 20` at the beginning, every value after the first `X at 10` is _between 10 and 20 minutes_ (total souls at 20 = total souls at 10 + minion souls _between 10 and 20_ + cannon minion souls _between 10 and 20_ + ...).
 
-<ul>
+<ul class="equationList">
   <li>
-    <DetailedEquasion :content="[
+    <DetailedEquation :content="[
 	['souls per minute at 20', computedTotalAt20PerMinute],
 	'=',
 	['total souls at 20', computedTotalAt20],
@@ -279,7 +279,7 @@ With `at 20` at the beginning, every value after the first `X at 10` is _between
     ]" />
   </li>
   <li>
-    <DetailedEquasion :content="[
+    <DetailedEquation :content="[
 	['total souls at 20', computedTotalAt20],
 	'=',
 	['total souls at 10', computedTotalAt10],
@@ -296,7 +296,7 @@ With `at 20` at the beginning, every value after the first `X at 10` is _between
     ]" />
   </li>
   <li>
-    <DetailedEquasion :content="[
+    <DetailedEquation :content="[
 	['minion souls between 10 and 20', computedMinionSoulsPost10Per10],
 	'=',
 	['total minions', minionsPost10Per10],
@@ -305,7 +305,7 @@ With `at 20` at the beginning, every value after the first `X at 10` is _between
     ]" />
   </li>
   <li>
-    <DetailedEquasion :content="[
+    <DetailedEquation :content="[
 	['cannon minion souls between 10 and 20', computedCannonSoulsPer10],
 	'=',
 	['total cannons', cannonsPer10],
@@ -314,7 +314,7 @@ With `at 20` at the beginning, every value after the first `X at 10` is _between
     ]" />
   </li>
   <li>
-    <DetailedEquasion :content="[
+    <DetailedEquation :content="[
       [`${isRed ? 'gromp' : 'krug'} souls between 10 and 20`, computedMonsterSoulsPost10Per10],
       '=',
       [`total ${isRed ? 'gromps' : 'krugs'}`, computedMonstersPost10Per10],
@@ -323,7 +323,7 @@ With `at 20` at the beginning, every value after the first `X at 10` is _between
     ]" />
   </li>
   <li>
-    <DetailedEquasion :content="[
+    <DetailedEquation :content="[
 	['champion souls between 10 and 20', computedChampionSoulsPost10Per10],
 	'=',
 	['champions', 2],
@@ -334,7 +334,7 @@ With `at 20` at the beginning, every value after the first `X at 10` is _between
     ]" />
   </li>
   <li>
-    <DetailedEquasion :content="[
+    <DetailedEquation :content="[
       ['scuttle souls between 10 and 20', computedScuttleSoulsAt20],
       '=',
       ['total scuttles', computedScuttlesPer10]
@@ -346,7 +346,7 @@ Additionally here are some values from the [results](#results) table for specifi
 
 <ul>
   <li>
-    <DetailedEquasion :content="[
+    <DetailedEquation :content="[
 	['minion souls at 20', computedMinionSoulsAt20],
 	'=',
 	['minion souls at 10', computedMinionSoulsAt10],
@@ -355,7 +355,7 @@ Additionally here are some values from the [results](#results) table for specifi
     ]" />
   </li>
   <li>
-    <DetailedEquasion :content="[
+    <DetailedEquation :content="[
 	['cannon minion souls at 20', computedCannonSoulsAt20],
 	'=',
 	['cannon minion souls at 10', computedCannonSoulsPer10],
@@ -364,7 +364,7 @@ Additionally here are some values from the [results](#results) table for specifi
     ]" />
   </li>
   <li>
-    <DetailedEquasion :content="[
+    <DetailedEquation :content="[
       [`${isRed ? 'gromp' : 'krug'} souls at 20`, computedMonsterSoulsAt20],
       '=',
       [`${isRed ? 'gromps' : 'krugs'} souls at 10`, computedMonsterSoulsAt10],
@@ -373,7 +373,7 @@ Additionally here are some values from the [results](#results) table for specifi
     ]" />
   </li>
   <li>
-    <DetailedEquasion :content="[
+    <DetailedEquation :content="[
       ['scuttle souls at 20', computedScuttleSoulsAt20],
       '=',
       ['scuttle souls at 10', computedScuttleSoulsPer10],
@@ -539,3 +539,17 @@ Minion soul drop rates can be adjusted in [values](#values).
 ## sources
 
 - [League of Legends wiki](https://wiki.leagueoflegends.com/en-us/)
+
+<style>
+.equationList {
+  &:has(span[data-highlight-id='totalsouls']:hover) div:has(#totalsouls)::after,
+  &:has(span[data-highlight-id='minionsouls']:hover) div:has(#minionsouls)::after,
+  &:has(span[data-highlight-id='cannonminionsouls']:hover) div:has(#cannonminionsouls)::after,
+  &:has(span[data-highlight-id='krugsouls']:hover) div:has(#krugsouls)::after,
+  &:has(span[data-highlight-id='grompsouls']:hover) div:has(#grompsouls)::after,
+  &:has(span[data-highlight-id='championsouls']:hover) div:has(#championsouls)::after,
+  &:has(span[data-highlight-id='scuttlesouls']:hover) div:has(#scuttlesouls)::after {
+    content: '';
+  }
+}
+</style>
