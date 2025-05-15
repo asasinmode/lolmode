@@ -542,13 +542,13 @@ Minion soul drop rates can be adjusted in [values](#values).
 
 <style>
 .equationList {
-  &:has(span[data-highlight-id='totalsouls']:hover) div:has(#totalsouls)::after,
-  &:has(span[data-highlight-id='minionsouls']:hover) div:has(#minionsouls)::after,
-  &:has(span[data-highlight-id='cannonminionsouls']:hover) div:has(#cannonminionsouls)::after,
-  &:has(span[data-highlight-id='krugsouls']:hover) div:has(#krugsouls)::after,
-  &:has(span[data-highlight-id='grompsouls']:hover) div:has(#grompsouls)::after,
-  &:has(span[data-highlight-id='championsouls']:hover) div:has(#championsouls)::after,
-  &:has(span[data-highlight-id='scuttlesouls']:hover) div:has(#scuttlesouls)::after {
+  &:has([data-highlight-id='totalsouls']:hover) #totalsouls::after,
+  &:has([data-highlight-id='minionsouls']:hover) #minionsouls::after,
+  &:has([data-highlight-id='cannonminionsouls']:hover) #cannonminionsouls::after,
+  &:has([data-highlight-id='krugsouls']:hover) #krugsouls::after,
+  &:has([data-highlight-id='grompsouls']:hover) #grompsouls::after,
+  &:has([data-highlight-id='championsouls']:hover) #championsouls::after,
+  &:has([data-highlight-id='scuttlesouls']:hover) #scuttlesouls::after {
     content: '';
   }
 }
